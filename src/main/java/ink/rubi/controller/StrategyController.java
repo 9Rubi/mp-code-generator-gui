@@ -82,7 +82,7 @@ public class StrategyController implements IController<StrategyConfig> {
                 .setNameConvert(null)
                 .setNaming(NamingStrategy.underline_to_camel).setColumnNaming(NamingStrategy.underline_to_camel)
                 .setTablePrefix(tablePrefix.getText().split(",")).setFieldPrefix(fieldPrefix.getText().split(","))
-                .setSuperMapperClass(superMapperClass.getText()).setSuperEntityColumns(superEntityColumns.getText())
+                .setSuperMapperClass(superMapperClass.getText()).setSuperEntityColumns(superEntityColumns.getText().split(","))
                 .setSuperControllerClass(superControllerClass.getText()).setSuperServiceClass(superServiceClass.getText())
                 .setEntityTableFieldAnnotationEnable(entityTableFieldAnnotationEnable.isSelected())
                 .setSuperServiceImplClass(superServiceImplClass.getText())

@@ -4,16 +4,16 @@
           vgap="10" hgap="10" xmlns="http://javafx.com/javafx/8.0.172"
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="ink.rubi.controller.StrategyController">
 
-    <Label text="表前缀,半角逗号分隔,下同" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-    <TextField fx:id="tablePrefix" prefWidth="345.0" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <Label text="表前缀(半角逗号分割)" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <TextField fx:id="tablePrefix" prefWidth="305" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-    <Label text="字段前缀" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <Label text="字段前缀(半角逗号分割)" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
     <TextField fx:id="fieldPrefix" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
     <Label text="自定义继承的Entity类全称" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
     <TextField fx:id="superEntityClass" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-    <Label text="自定义基础的Entity类,公共字段" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+    <Label text="自定义基础的Entity类的公共字段(半角逗号分割)" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
     <TextField fx:id="superEntityColumns" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
     <Label text="自定义继承的Mapper类全称" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
