@@ -5,8 +5,9 @@ import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import ink.rubi.controller.stream.GUIPrintStream;
+import ink.rubi.config.GUIConfig;
 import ink.rubi.modal.AlertBox;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,11 +19,8 @@ import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
 /**
@@ -53,6 +51,7 @@ public class MainController implements Initializable {
     @FXML
     private PackageConfController packageConfController;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         console.setEditable(false);
@@ -60,8 +59,15 @@ public class MainController implements Initializable {
         globalController.init(this);
         strategyController.init(this);
         packageConfController.init(this);
-//        pushSystemOutToTextArea();
+        if (GUIConfig.showLogInGUIWindow){
+            try {
+                redirectSystemOut();
+            } catch (FileNotFoundException e) {
+                log.error("{}", e);
+            }
+        }
     }
+
 
     public void buttonOnClick(ActionEvent actionEvent) {
         executeGenerator(globalController.getConfig(), strategyController.getConfig(),
@@ -71,7 +77,6 @@ public class MainController implements Initializable {
     private void executeGenerator(GlobalConfig globalConfig, StrategyConfig strategyConfig,
                                   DataSourceConfig dataSourceConfig, PackageConfig packageConfig) {
         AutoGenerator generator = new AutoGenerator();
-
 
         String[] tableNames = typeIn.getText().split("\\r?\\n");
         for (String tableName : tableNames) {
@@ -95,37 +100,10 @@ public class MainController implements Initializable {
         log.info("{}", dataSourceConfig);
     }
 
-
-    private void pushSystemOutToTextArea() {
-        WindowConsoleOutputStream out = new WindowConsoleOutputStream();
-        System.setOut(new PrintStream(out, true));
-        System.setErr(System.out);
+    private void redirectSystemOut() throws FileNotFoundException {
+        GUIPrintStream guiPrintStream = new GUIPrintStream(System.out, console);
+        System.setOut(guiPrintStream);
+        System.setErr(guiPrintStream);
     }
-
-
-    class WindowConsoleOutputStream extends OutputStream {
-        @Override
-        public void write(int b) {
-        }
-
-        @Override
-        public void write(byte[] b) throws IOException {
-            write(b, 0, b.length);
-        }
-
-        @Override
-        public void write(byte[] b, int off, int len) {
-            if (b == null) {
-                throw new NullPointerException();
-            } else if ((off < 0) || (off > b.length) || (len < 0) ||
-                    ((off + len) > b.length) || ((off + len) < 0)) {
-                throw new IndexOutOfBoundsException();
-            } else if (len == 0) {
-                return;
-            }
-            Platform.runLater(() -> console.appendText(new String(b, StandardCharsets.UTF_8)));
-        }
-    }
-
 
 }

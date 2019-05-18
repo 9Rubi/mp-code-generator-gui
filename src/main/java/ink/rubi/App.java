@@ -1,5 +1,6 @@
 package ink.rubi;
 
+import ink.rubi.config.GUIConfig;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,8 +9,6 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Properties;
 
 /**
  * @author : Rubi
@@ -26,10 +25,14 @@ public class App extends Application {
     private Scene scene;
     @Getter
     private Parent layout;
-    @Getter
-    private Properties prop;
 
     public static void main(String[] args) {
+        log.info("loading conf.properties");
+        try {
+            GUIConfig.init();
+        } catch (Exception e) {
+            log.warn("{0}", e);
+        }
         launch(args);
     }
 
@@ -42,12 +45,7 @@ public class App extends Application {
         window.setResizable(false);
         window.setTitle("Mybatis-plus代码生成器GUI");
 
-        log.info("加载配置文件");
-        prop = new Properties();
-        prop.load(getClass().getResourceAsStream("/conf.properties"));
-        prop.forEach((key, value) -> log.info(key + ":" + value));
-
-        log.info("加载样式");
+        log.info("loading layout and css");
         scene = new Scene(layout);
         scene.getStylesheets().add("/pattern/App.css");
 

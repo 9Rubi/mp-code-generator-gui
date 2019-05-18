@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
-    <!--<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">-->
-    <!--<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>-->
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <property name="log.path" value="./log/"/>
     <appender name="CA" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
         </encoder>
-        <!--<layout class="org.apache.log4j.PatternLayout">-->
-        <!--<param name="ConversionPattern" descrption="%d{H:mm:ss} %-5p %c %x - %m%n" />-->
-        <!--</layout>-->
     </appender>
-    <!-- 	<appender name="FILE" class="org.apache.log4j.FileAppender">
-            <param name="file" descrption="${log}.log"/>
-            <param name="immediateFlush" descrption="true"/>
-            <param name="threshhold" descrption="debug"/>
-            <param name="append" descrption="false"/>
-            <layout class="org.apache.log4j.PatternLayout">
-                  <param name="ConversionPattern" descrption="%d{H:mm:ss} %-5p %c %x - %m%n" />
-               </layout>
-        </appender> -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${log.path}/mp-code-generator-gui_%d{yyyy-MM-dd}.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>10MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
     <logger name="com.zaxxer.hikari">
         <level value="error"/>
     </logger>
@@ -27,8 +28,8 @@
         <level value="error"/>
     </logger>
     <root>
-        <level value="debug"/>
+        <level value="DEBUG"/>
+        <appender-ref ref="FILE"/>
         <appender-ref ref="CA"/>
     </root>
 </configuration>
-        <!--</log4j:configuration>-->
