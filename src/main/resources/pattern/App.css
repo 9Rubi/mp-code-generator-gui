@@ -1,0 +1,45 @@
+.root {
+    -fx-background-color: #383838;
+    /*-fx-background-color: #000;*/
+}
+
+#sideBar {
+    -fx-text-fill: #000;
+}
+
+.greyTextField {
+    -fx-background-color: #919191;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-text-fill: aqua;
+}
+.leftTextField{
+    -fx-background-color: #919191;
+    -fx-alignment: CENTER_LEFT;
+    -fx-text-fill: aqua;
+}
+.whiteLabel {
+    -fx-text-fill: #bbb;
+}
+
+.centerPane {
+    -fx-padding: 10;
+}
+
+#console {
+    -fx-text-fill: #25ff4e;
+    -fx-font-size: 12px;
+    -fx-font-family: Consolas;
+    -fx-background-color: #383838;
+    -fx-base: #000;
+    -fx-padding: 5;
+}
+
+#typeIn {
+    -fx-pref-width: 273;
+    -fx-font-size: 12px;
+    -fx-padding: 5;
+}
+
+.submit {
+    -fx-pref-width: 100;
+}

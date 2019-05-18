@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <!--<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">-->
+    <!--<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>-->
+    <appender name="CA" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <!--<layout class="org.apache.log4j.PatternLayout">-->
+        <!--<param name="ConversionPattern" descrption="%d{H:mm:ss} %-5p %c %x - %m%n" />-->
+        <!--</layout>-->
+    </appender>
+    <!-- 	<appender name="FILE" class="org.apache.log4j.FileAppender">
+            <param name="file" descrption="${log}.log"/>
+            <param name="immediateFlush" descrption="true"/>
+            <param name="threshhold" descrption="debug"/>
+            <param name="append" descrption="false"/>
+            <layout class="org.apache.log4j.PatternLayout">
+                  <param name="ConversionPattern" descrption="%d{H:mm:ss} %-5p %c %x - %m%n" />
+               </layout>
+        </appender> -->
+    <logger name="com.zaxxer.hikari">
+        <level value="error"/>
+    </logger>
+    <logger name="javafx">
+        <level value="error"/>
+    </logger>
+    <root>
+        <level value="debug"/>
+        <appender-ref ref="CA"/>
+    </root>
+</configuration>
+        <!--</log4j:configuration>-->

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+            prefWidth="1280.0"
+            xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ink.rubi.controller.MainController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <left>
+        <ListView fx:id="sideBar" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="开始使用"/>
+                </FXCollections>
+            </items>
+        </ListView>
+    </left>
+    <center>
+
+
+        <BorderPane>
+            <center>
+                <TabPane fx:id="tabPane">
+                    <tabs>
+                        <Tab text="数据源配置" closable="false">
+                            <content>
+                                <fx:include fx:id="dataSource" BorderPane.alignment="TOP_LEFT"
+                                            source="DataSourceConfig.fxml"/>
+                            </content>
+                        </Tab>
+                        <Tab text="策略配置"  closable="false">
+                            <content>
+                                <fx:include fx:id="strategy" BorderPane.alignment="TOP_LEFT"
+                                            source="StrategyConfig.fxml"/>
+                            </content>
+                        </Tab>
+                        <Tab text="包配置" closable="false">
+                            <content>
+                                <fx:include fx:id="packageConf" BorderPane.alignment="TOP_LEFT"
+                                            source="PackageConfig.fxml"/>
+                            </content>
+                        </Tab>
+                        <Tab text="全局配置"  closable="false">
+                            <content>
+                                <fx:include fx:id="global" BorderPane.alignment="TOP_LEFT"
+                                            source="GlobalConfig.fxml"/>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </center>
+
+            <bottom>
+                <AnchorPane>
+                    <Button fx:id="submit" text="执行" styleClass="submit" onAction="#buttonOnClick"
+                            AnchorPane.bottomAnchor="10.0"
+                            AnchorPane.rightAnchor="10.0"/>
+                </AnchorPane>
+
+            </bottom>
+
+        </BorderPane>
+
+
+    </center>
+    <right>
+        <TextArea fx:id="typeIn" promptText="这里输入表名，换行以分割"/>
+    </right>
+    <bottom>
+        <TextArea fx:id="console"/>
+    </bottom>
+</BorderPane>
+
+
