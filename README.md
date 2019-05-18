@@ -13,8 +13,8 @@ pom依赖里的 **velocity** 和 **spring** 是为了**兼容**
 
 ## 一些细节问题
 
-暂时没有做全角空格之类的清除，因为是 programmer-oriented，就懒了
-打印日志问题，因为 `mp-generator` 里的代码异常是 `ex.printStack()` 或者 `System.err.println()`，
-而本程序 TextArea是重定向了System.out流，但 **日志文件** 是 logback生成的 并不识别得到 `mp-generator` 的红字输出。
+暂时没有做全角空格之类的清除，因为是 programmer-oriented，就懒了。  
+打印日志问题，因为 `mp-generator` 里的代码异常是 `ex.printStack()` 或者 `System.err.println()`  
+而本程序 TextArea是重定向了System.out流，但 **日志文件** 是 logback生成的 并不识别得到 `mp-generator` 的红字输出。  
 故 `mp-code-generator-gui.log` 和 GUI窗里的内容有所不同。
 
