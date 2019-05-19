@@ -18,3 +18,8 @@ pom依赖里的 **velocity** 和 **spring** 是为了**兼容**
 而本程序 TextArea是重定向了System.out流，但 **日志文件** 是 logback生成的 并不识别得到 `mp-generator` 的红字输出。  
 故 `mp-code-generator-gui.log` 和 GUI窗里的内容有所不同。
 
+
+## 写给自己看的，要做的功能
+
+导出/读取 配置元数据 ok  
+清屏

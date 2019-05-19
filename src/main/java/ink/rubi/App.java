@@ -31,7 +31,7 @@ public class App extends Application {
         try {
             GUIConfig.init();
         } catch (Exception e) {
-            log.warn("{0}", e);
+            log.error("{0}", e);
         }
         launch(args);
     }

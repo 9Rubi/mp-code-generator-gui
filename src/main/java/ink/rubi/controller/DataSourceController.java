@@ -13,7 +13,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.util.StringConverter;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ import java.util.ResourceBundle;
  * @version : 2019-05-17 23:27 下午
  */
 @Getter
+@Slf4j
 public class DataSourceController implements IController<DataSourceConfig> {
     @FXML
     private ChoiceBox<DbTypeItem> dbType;
@@ -36,12 +39,16 @@ public class DataSourceController implements IController<DataSourceConfig> {
     @FXML
     private TextField url, driverName, username, password, schemaName;
 
+    private DbTypeItem defaultDbType;
+    private DbQueryItem defaultDbQuery;
+    private TypeConvertItem defaultTypeConvert;
     private MainController mainController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         dbType.getItems().addAll(getDbTypes());
-        dbType.setValue(dbType.getItems().get(0));
+        defaultDbType = dbType.getItems().get(0);
+        dbType.setValue(defaultDbType);
         dbType.converterProperty().set(new StringConverter<DbTypeItem>() {
             @Override
             public String toString(DbTypeItem object) {
@@ -55,7 +62,8 @@ public class DataSourceController implements IController<DataSourceConfig> {
         });
 
         dbQuery.getItems().addAll(getDbQuerys());
-        dbQuery.setValue(dbQuery.getItems().get(3));
+        defaultDbQuery = dbQuery.getItems().get(3);
+        dbQuery.setValue(defaultDbQuery);
         dbQuery.converterProperty().set(new StringConverter<DbQueryItem>() {
             @Override
             public String toString(DbQueryItem object) {
@@ -70,7 +78,9 @@ public class DataSourceController implements IController<DataSourceConfig> {
 
 
         typeConvert.getItems().addAll(getTypeConverts());
-        typeConvert.setValue(typeConvert.getItems().get(2));
+        defaultTypeConvert = typeConvert.getItems().get(2);
+        typeConvert.setValue(defaultTypeConvert);
+
         typeConvert.converterProperty().set(new StringConverter<TypeConvertItem>() {
             @Override
             public String toString(TypeConvertItem object) {
@@ -144,4 +154,18 @@ public class DataSourceController implements IController<DataSourceConfig> {
     public void init(MainController mainController) {
         this.mainController = mainController;
     }
+
+    @Override
+    public void flushConfig(DataSourceConfig dataSourceConfig) {
+        url.setText(dataSourceConfig.getUrl());
+        driverName.setText(dataSourceConfig.getDriverName());
+        username.setText(dataSourceConfig.getUsername());
+        password.setText(dataSourceConfig.getPassword());
+        schemaName.setText(dataSourceConfig.getSchemaName());
+        matchChoice(dbType, "dbType", dataSourceConfig.getDbType(), defaultDbType);
+        matchChoice(dbQuery, "dbQuery", dataSourceConfig.getDbQuery(), defaultDbQuery);
+        matchChoice(typeConvert, "typeConvert", dataSourceConfig.getTypeConvert(), defaultTypeConvert);
+    }
+
+
 }

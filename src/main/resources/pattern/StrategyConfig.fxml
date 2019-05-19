@@ -68,4 +68,14 @@
 
     <Label text="控制器映射是否驼峰转连字符" styleClass="whiteLabel" GridPane.columnIndex="3"  GridPane.rowIndex="7"/>
     <CheckBox fx:id="controllerMappingHyphenStyle" selected="true" GridPane.columnIndex="4"  GridPane.rowIndex="7"/>
+
+    <Label text="是否大写命名" styleClass="whiteLabel" GridPane.columnIndex="3"  GridPane.rowIndex="8"/>
+    <CheckBox fx:id="isCapitalMode"  GridPane.columnIndex="4"  GridPane.rowIndex="8"/>
+
+    <Label text="是否跳过视图" styleClass="whiteLabel" GridPane.columnIndex="3"  GridPane.rowIndex="9"/>
+    <CheckBox fx:id="skipView" GridPane.columnIndex="4"  GridPane.rowIndex="9"/>
+
+
+
+
 </GridPane>

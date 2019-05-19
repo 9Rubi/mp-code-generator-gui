@@ -39,11 +39,15 @@ public class GlobalController implements IController<GlobalConfig> {
     private ChoiceBox<DateTypeItem> dateType;
     @FXML
     private ChoiceBox<IdTypeItem> idType;
-    private DirectoryChooser directoryChooser;
     @FXML
     private GridPane globalPage;
 
     private MainController mainController;
+
+    private DirectoryChooser chooseGenerateDirectory;
+
+    private DateTypeItem defaultDateType;
+    private IdTypeItem defaultIdType;
 
     @Override
     public void init(MainController mainController) {
@@ -52,10 +56,11 @@ public class GlobalController implements IController<GlobalConfig> {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("选择导出目录");
+        chooseGenerateDirectory = new DirectoryChooser();
+        chooseGenerateDirectory.setTitle("选择导出目录");
         dateType.getItems().addAll(getDateTypes());
-        dateType.setValue(dateType.getItems().get(0));
+        defaultDateType =dateType.getItems().get(0);
+        dateType.setValue(defaultDateType);
         dateType.converterProperty().set(new StringConverter<DateTypeItem>() {
             @Override
             public String toString(DateTypeItem object) {
@@ -67,9 +72,9 @@ public class GlobalController implements IController<GlobalConfig> {
                 return null;
             }
         });
-
         idType.getItems().addAll(getIdTypes());
-        idType.setValue(idType.getItems().get(3));
+        defaultIdType =idType.getItems().get(3);
+        idType.setValue(defaultIdType);
         idType.converterProperty().set(new StringConverter<IdTypeItem>() {
             @Override
             public String toString(IdTypeItem object) {
@@ -84,7 +89,7 @@ public class GlobalController implements IController<GlobalConfig> {
     }
 
     public void choose(MouseEvent mouseEvent) {
-        File file = directoryChooser.showDialog(App.getWindow());
+        File file = chooseGenerateDirectory.showDialog(App.getWindow());
         if (file != null) {
             String path = file.getPath();
             outputDir.setText(path);
@@ -123,6 +128,29 @@ public class GlobalController implements IController<GlobalConfig> {
                 .setIdType(idType.getSelectionModel().selectedItemProperty().getValue().getIdType())
                 .setDateType(dateType.getSelectionModel().selectedItemProperty().getValue().getDateType())
                 .setOpen(open.isSelected());
+
+    }
+
+    @Override
+    public void flushConfig(GlobalConfig globalConfig) {
+        outputDir.setText(globalConfig.getOutputDir());
+        author.setText(globalConfig.getAuthor());
+        entityName.setText(globalConfig.getEntityName());
+        mapperName.setText(globalConfig.getMapperName());
+        xmlName.setText(globalConfig.getXmlName());
+        serviceName.setText(globalConfig.getServiceName());
+        serviceImplName.setText(globalConfig.getServiceImplName());
+        controllerName.setText(globalConfig.getControllerName());
+        open.setSelected(globalConfig.isOpen());
+        fileOverride.setSelected(globalConfig.isFileOverride());
+        enableCache.setSelected(globalConfig.isEnableCache());
+        kotlin.setSelected(globalConfig.isKotlin());
+        swagger2.setSelected(globalConfig.isSwagger2());
+        activeRecord.setSelected(globalConfig.isActiveRecord());
+        baseResultMap.setSelected(globalConfig.isBaseResultMap());
+        baseColumnList.setSelected(globalConfig.isBaseColumnList());
+        matchChoice(dateType, "dateType", globalConfig.getDateType(), defaultDateType);
+        matchChoice(idType, "idType", globalConfig.getIdType(), defaultIdType);
 
     }
 }

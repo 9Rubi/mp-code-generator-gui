@@ -1,5 +1,6 @@
 package ink.rubi.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import ink.rubi.po.NamingItem;
@@ -22,6 +23,7 @@ import java.util.ResourceBundle;
  */
 @Getter
 public class StrategyController implements IController<StrategyConfig> {
+
     @FXML
     private TextField tablePrefix, fieldPrefix, superEntityClass, superEntityColumns, superMapperClass,
             superServiceClass, superServiceImplClass, superControllerClass, versionFieldName, logicDeleteFieldName;
@@ -30,11 +32,13 @@ public class StrategyController implements IController<StrategyConfig> {
     @FXML
     private CheckBox entitySerialVersionUID, entityColumnConstant, entityTableFieldAnnotationEnable,
             entityBuilderModel, entityLombokModel, entityBooleanColumnRemoveIsPrefix, restControllerStyle,
-            controllerMappingHyphenStyle;
+            controllerMappingHyphenStyle, skipView, isCapitalMode;
     @FXML
     private GridPane strategyPage;
 
     private MainController mainController;
+
+    private NamingItem defaultNaming;
 
     @Override
     public void init(MainController mainController) {
@@ -46,11 +50,12 @@ public class StrategyController implements IController<StrategyConfig> {
         NamingConverter<NamingItem> namingConverter = new NamingConverter<>();
 
         naming.getItems().addAll(getNamings());
-        naming.setValue(naming.getItems().get(1));
+        defaultNaming = naming.getItems().get(1);
+        naming.setValue(defaultNaming);
         naming.converterProperty().set(namingConverter);
 
         columnNaming.getItems().addAll(getNamings());
-        columnNaming.setValue(columnNaming.getItems().get(1));
+        columnNaming.setValue(defaultNaming);
         columnNaming.converterProperty().set(namingConverter);
 
     }
@@ -81,12 +86,13 @@ public class StrategyController implements IController<StrategyConfig> {
         return new StrategyConfig()
                 .setNameConvert(null)
                 .setNaming(NamingStrategy.underline_to_camel).setColumnNaming(NamingStrategy.underline_to_camel)
-                .setTablePrefix(tablePrefix.getText().split(",")).setFieldPrefix(fieldPrefix.getText().split(","))
-                .setSuperMapperClass(superMapperClass.getText()).setSuperEntityColumns(superEntityColumns.getText().split(","))
+                .setTablePrefix(tablePrefix.getText().split(StringPool.COMMA)).setFieldPrefix(fieldPrefix.getText().split(StringPool.COMMA))
+                .setSuperMapperClass(superMapperClass.getText()).setSuperEntityColumns(superEntityColumns.getText().split(StringPool.COMMA))
                 .setSuperControllerClass(superControllerClass.getText()).setSuperServiceClass(superServiceClass.getText())
                 .setEntityTableFieldAnnotationEnable(entityTableFieldAnnotationEnable.isSelected())
                 .setSuperServiceImplClass(superServiceImplClass.getText())
                 .setEntitySerialVersionUID(entitySerialVersionUID.isSelected())
+                .setSuperEntityClass(superEntityClass.getText())
                 .setEntityColumnConstant(entityColumnConstant.isSelected())
                 .setEntityBuilderModel(entityBuilderModel.isSelected())
                 .setEntityLombokModel(entityLombokModel.isSelected())
@@ -95,8 +101,38 @@ public class StrategyController implements IController<StrategyConfig> {
                 .setControllerMappingHyphenStyle(controllerMappingHyphenStyle.isSelected())
                 .setVersionFieldName(versionFieldName.getText())
                 .setLogicDeleteFieldName(logicDeleteFieldName.getText())
+                .setSkipView(skipView.isSelected())
+                .setCapitalMode(isCapitalMode.isSelected())
                 .setTableFillList(null);
 
     }
+
+    @Override
+    public void flushConfig(StrategyConfig strategyConfig) {
+        tablePrefix.setText(String.join(StringPool.COMMA, strategyConfig.getTablePrefix() != null ? strategyConfig.getTablePrefix() : new String[]{}));
+        fieldPrefix.setText(String.join(StringPool.COMMA, strategyConfig.getFieldPrefix() != null ? strategyConfig.getFieldPrefix() : new String[]{}));
+        superEntityClass.setText(strategyConfig.getSuperEntityClass());
+        superEntityColumns.setText(String.join(StringPool.COMMA, strategyConfig.getSuperEntityColumns() != null ? strategyConfig.getSuperEntityColumns() : new String[]{}));
+        superMapperClass.setText(strategyConfig.getSuperMapperClass());
+        superServiceClass.setText(strategyConfig.getSuperServiceClass());
+        superServiceImplClass.setText(strategyConfig.getSuperServiceImplClass());
+        superControllerClass.setText(strategyConfig.getSuperControllerClass());
+        versionFieldName.setText(strategyConfig.getVersionFieldName());
+        logicDeleteFieldName.setText(strategyConfig.getLogicDeleteFieldName());
+        entitySerialVersionUID.setSelected(strategyConfig.isEntitySerialVersionUID());
+        entityColumnConstant.setSelected(strategyConfig.isEntityColumnConstant());
+        entityTableFieldAnnotationEnable.setSelected(strategyConfig.isEntityTableFieldAnnotationEnable());
+        entityBuilderModel.setSelected(strategyConfig.isEntityBuilderModel());
+        entityLombokModel.setSelected(strategyConfig.isEntityLombokModel());
+        entityBooleanColumnRemoveIsPrefix.setSelected(strategyConfig.isEntityBooleanColumnRemoveIsPrefix());
+        restControllerStyle.setSelected(strategyConfig.isRestControllerStyle());
+        controllerMappingHyphenStyle.setSelected(strategyConfig.isControllerMappingHyphenStyle());
+        skipView.setSelected(strategyConfig.isSkipView());
+        isCapitalMode.setSelected(strategyConfig.isCapitalMode());
+        matchChoice(naming, "namingStrategy", strategyConfig.getNaming(), defaultNaming);
+        matchChoice(columnNaming, "namingStrategy", strategyConfig.getColumnNaming(), defaultNaming);
+    }
+
+
 }
 

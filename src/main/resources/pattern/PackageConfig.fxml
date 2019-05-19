@@ -5,8 +5,8 @@
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="ink.rubi.controller.PackageConfController">
 
 
-    <Label text="父包名" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-    <TextField fx:id="parent" text="com.baomidou" prefWidth="693.0" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <Label text="父包名,如果为空,将下面子包名必须写全部,否则就只需写子包名" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <TextField fx:id="parent" text="com.baomidou" prefWidth="435.0" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
     <Label text="父包模块名" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
     <TextField fx:id="moduleName" styleClass="leftTextField" GridPane.columnIndex="1"
