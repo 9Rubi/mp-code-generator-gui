@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ChoiceBox?>
 <GridPane fx:id="globalPage" styleClass="centerPane" vgap="10" hgap="10" xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ink.rubi.controller.GlobalController">
+          fx:controller="ink.rubi.codegenerator.controller.GlobalController">
 
     <Label text="生成文件的输出目录" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
     <TextField fx:id="outputDir" text="D:\generate-code"

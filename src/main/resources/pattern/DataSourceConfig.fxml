@@ -2,7 +2,7 @@
 <?import javafx.scene.layout.*?>
 <GridPane fx:id="dataSourcePage" styleClass="centerPane"
           vgap="10" hgap="10" xmlns="http://javafx.com/javafx/8.0.172"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="ink.rubi.controller.DataSourceController">
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="ink.rubi.codegenerator.controller.DataSourceController">
 
 
     <Label text="数据库地址" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
@@ -17,13 +17,13 @@
 
     <Label text="密码" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
     <PasswordField fx:id="password" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-
+<!--
     <Label text="数据库类型" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
     <ChoiceBox fx:id="dbType" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     <Label text="数据库信息查询" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
     <ChoiceBox fx:id="dbQuery" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
     <Label text="类型转换" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-    <ChoiceBox fx:id="typeConvert" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    <ChoiceBox fx:id="typeConvert" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="6"/>-->
     <Label text="PostgreSQL schemaName" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
     <TextField fx:id="schemaName" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
 
