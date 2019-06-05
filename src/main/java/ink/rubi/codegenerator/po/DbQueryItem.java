@@ -12,8 +12,17 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DbQueryItem {
+public class DbQueryItem implements Item<IDbQuery> {
     private IDbQuery dbQuery;
     private String description;
 
+    @Override
+    public IDbQuery getValue() {
+        return this.dbQuery;
+    }
+
+    @Override
+    public String getDesc() {
+        return this.description;
+    }
 }

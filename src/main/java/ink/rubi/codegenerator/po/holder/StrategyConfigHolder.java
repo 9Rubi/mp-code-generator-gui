@@ -1,5 +1,6 @@
 package ink.rubi.codegenerator.po.holder;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.INameConvert;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
@@ -8,7 +9,10 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author : Rubi
@@ -133,7 +137,7 @@ public class StrategyConfigHolder implements ConfigHolder<StrategyConfig> {
     /**
      * 表填充字段
      */
-    private List<TableFill> tableFillList = null;
+    private Map<String, String> tableFillList = null;
 
 
     @Override
@@ -167,8 +171,15 @@ public class StrategyConfigHolder implements ConfigHolder<StrategyConfig> {
                 .setEntityTableFieldAnnotationEnable(this.entityTableFieldAnnotationEnable)
                 .setVersionFieldName(this.versionFieldName)
                 .setLogicDeleteFieldName(this.logicDeleteFieldName)
-                .setTableFillList(this.tableFillList);
+
+                .setTableFillList(convertToList(this.tableFillList));
     }
 
+    public static List<TableFill> convertToList(Map<String, String> tableFillList) {
+        if (tableFillList == null) return null;
+        List<TableFill> list = new ArrayList<>();
+        tableFillList.forEach((name, type) -> list.add(new TableFill(name, FieldFill.valueOf(type))));
+        return list;
 
+    }
 }

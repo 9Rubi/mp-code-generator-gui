@@ -2,8 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0"
-            prefWidth="1065.0"
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0"
+            prefWidth="1100.0" stylesheets="/pattern/App.css"
             xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ink.rubi.codegenerator.controller.MainController">
     <top>
@@ -24,13 +24,13 @@
         </MenuBar>
     </top>
     <left>
-      <!--  <ListView fx:id="sideBar" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="开始使用"/>
-                </FXCollections>
-            </items>
-        </ListView>-->
+        <!--  <ListView fx:id="sideBar" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <items>
+                  <FXCollections fx:factory="observableArrayList">
+                      <String fx:value="开始使用"/>
+                  </FXCollections>
+              </items>
+          </ListView>-->
     </left>
     <center>
 
@@ -45,7 +45,7 @@
                                             source="DataSourceConfig.fxml"/>
                             </content>
                         </Tab>
-                        <Tab text="策略配置"  closable="false">
+                        <Tab text="策略配置" closable="false">
                             <content>
                                 <fx:include fx:id="strategy" BorderPane.alignment="TOP_LEFT"
                                             source="StrategyConfig.fxml"/>
@@ -57,10 +57,16 @@
                                             source="PackageConfig.fxml"/>
                             </content>
                         </Tab>
-                        <Tab text="全局配置"  closable="false">
+                        <Tab text="全局配置" closable="false">
                             <content>
                                 <fx:include fx:id="global" BorderPane.alignment="TOP_LEFT"
                                             source="GlobalConfig.fxml"/>
+                            </content>
+                        </Tab>
+                        <Tab text="模板配置" closable="false">
+                            <content>
+                                <fx:include fx:id="template" BorderPane.alignment="TOP_LEFT"
+                                            source="TemplateConfig.fxml"/>
                             </content>
                         </Tab>
                     </tabs>
@@ -69,10 +75,10 @@
 
             <bottom>
                 <AnchorPane>
-                    <Button fx:id="clear" text="清屏" styleClass="submit" onAction="#onClear"
+                    <Button text="清屏" styleClass="submit" onAction="#onClear"
                             AnchorPane.bottomAnchor="10.0"
                             AnchorPane.rightAnchor="120.0"/>
-                    <Button fx:id="submit" text="执行" styleClass="submit" onAction="#onSubmit"
+                    <Button text="执行" styleClass="submit" onAction="#onSubmit"
                             AnchorPane.bottomAnchor="10.0"
                             AnchorPane.rightAnchor="10.0"/>
                 </AnchorPane>

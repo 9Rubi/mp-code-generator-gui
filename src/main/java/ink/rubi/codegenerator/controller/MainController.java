@@ -46,11 +46,9 @@ public class MainController implements Initializable {
     @FXML
     private TextArea typeIn, console;
     @FXML
-    private GridPane global, dataSource, strategy, packageConf;
+    private GridPane global, dataSource, strategy, packageConf,template;
     @FXML
     private TabPane tabPane;
-    @FXML
-    private Button submit;
     @FXML
     private DataSourceController dataSourceController;
     @FXML
@@ -59,18 +57,13 @@ public class MainController implements Initializable {
     private StrategyController strategyController;
     @FXML
     private PackageConfController packageConfController;
+    @FXML
+    private TemplateController templateController;
 
     private FileChooser configFileChooser;
 
     private ObjectMapper objectMapper;
 
-    /* public static ObjectMapper getObjectMapper() {
-
-         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-         objectMapper.configOverride(DbType.class).setFormat(JsonFormat.Value.forShape(JsonFormat.Shape.OBJECT));
-         objectMapper.configOverride(IdType.class).setFormat(JsonFormat.Value.forShape(JsonFormat.Shape.OBJECT));
-         return objectMapper;
-     }*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         console.setEditable(false);
@@ -85,6 +78,7 @@ public class MainController implements Initializable {
         globalController.init(this);
         strategyController.init(this);
         packageConfController.init(this);
+        templateController.init(this);
         if (GUIConfig.showLogInGUIWindow) {
             try {
                 redirectSystemOut();
@@ -100,6 +94,7 @@ public class MainController implements Initializable {
                 .dataSourceConfigHolder(dataSourceController.getConfigHolder())
                 .packageConfigHolder(packageConfController.getConfigHolder())
                 .strategyConfigHolder(strategyController.getConfigHolder())
+                .templateConfigHolder(templateController.getConfigHolder())
                 .build();
 
 
@@ -130,8 +125,8 @@ public class MainController implements Initializable {
         strategyConfig.setInclude(tableNames);
         generator.setGlobalConfig(allConfig.getGlobalConfig())
                 .setDataSource(allConfig.getDataSourceConfig())
-                /*    .setTemplate(null).setTemplateEngine(null)
-                    .setConfig(null).setCfg(null)*/
+                .setTemplate(null).setTemplateEngine(null)
+                .setConfig(null).setCfg(null)
                 .setStrategy(strategyConfig)
                 .setPackageInfo(allConfig.getPackageConfig());
 
@@ -172,14 +167,15 @@ public class MainController implements Initializable {
     }
 
     private void flushAllConfig(AllConfigHolder container) throws Exception {
-        if (container != null) {
-            globalController.flushConfig(container.getGlobalConfigHolder());
-            packageConfController.flushConfig(container.getPackageConfigHolder());
-            dataSourceController.flushConfig(container.getDataSourceConfigHolder());
-            strategyController.flushConfig(container.getStrategyConfigHolder());
-        } else {
+        if (container == null) {
             throw new Exception("读取错误");
         }
+        globalController.flushConfig(container.getGlobalConfigHolder());
+        packageConfController.flushConfig(container.getPackageConfigHolder());
+        dataSourceController.flushConfig(container.getDataSourceConfigHolder());
+        strategyController.flushConfig(container.getStrategyConfigHolder());
+        templateController.flushConfig(container.getTemplateConfigHolder());
+        typeIn.setText(container.getStrategyConfigHolder().getInclude());
     }
 
     public void saveToFile(ActionEvent actionEvent) {

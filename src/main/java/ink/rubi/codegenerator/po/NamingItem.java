@@ -12,7 +12,17 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NamingItem {
+public class NamingItem implements Item<NamingStrategy> {
     private NamingStrategy namingStrategy;
     private String description;
+
+    @Override
+    public NamingStrategy getValue() {
+        return this.namingStrategy;
+    }
+
+    @Override
+    public String getDesc() {
+        return this.description;
+    }
 }

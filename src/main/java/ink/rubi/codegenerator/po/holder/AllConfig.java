@@ -1,9 +1,7 @@
 package ink.rubi.codegenerator.po.holder;
 
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.engine.AbstractTemplateEngine;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +20,6 @@ public class AllConfig {
     private DataSourceConfig dataSourceConfig;
     private StrategyConfig strategyConfig;
     private PackageConfig packageConfig;
+    private TemplateConfig templateConfig;
+    private AbstractTemplateEngine templateEngine;
 }

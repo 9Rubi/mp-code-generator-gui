@@ -12,7 +12,17 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DateTypeItem {
+public class DateTypeItem implements Item<DateType> {
     private DateType dateType;
     private String description;
+
+    @Override
+    public DateType getValue() {
+        return this.dateType;
+    }
+
+    @Override
+    public String getDesc() {
+        return this.description;
+    }
 }

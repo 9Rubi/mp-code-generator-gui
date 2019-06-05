@@ -1,28 +1,34 @@
 package ink.rubi.codegenerator.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author : Rubi
- * @version : 2019-05-17 22:10 下午
+ * @author Rubi
+ * @since 2019-06-05 10:47
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class IdTypeItem implements Item<IdType>{
-    private IdType idType;
+public class FieldFillItem implements Item<FieldFill> {
+    /**
+     * 忽略类型
+     */
+    private FieldFill fieldFill;
+
     private String description;
 
     @Override
-    public IdType getValue() {
-        return this.idType;
+    public FieldFill getValue() {
+        return this.fieldFill;
     }
 
     @Override
     public String getDesc() {
         return this.description;
     }
+
+
 }

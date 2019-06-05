@@ -3,6 +3,7 @@ package ink.rubi.codegenerator.controller;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import ink.rubi.codegenerator.App;
+import ink.rubi.codegenerator.controller.converter.ItemStringConverter;
 import ink.rubi.codegenerator.po.DateTypeItem;
 import ink.rubi.codegenerator.po.IdTypeItem;
 import ink.rubi.codegenerator.po.holder.GlobalConfigHolder;
@@ -13,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
-import javafx.util.StringConverter;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,8 +46,25 @@ public class GlobalController implements IController<GlobalConfigHolder> {
 
     private DirectoryChooser chooseGenerateDirectory;
 
-    private DateTypeItem defaultDateType;
-    private IdTypeItem defaultIdType;
+
+    private static final List<DateTypeItem> dateTypes = new ArrayList<DateTypeItem>() {{
+        add(new DateTypeItem(DateType.ONLY_DATE, "只使用 java.util.date 代替"));
+        add(new DateTypeItem(DateType.SQL_PACK, "使用 java.sql 包下的"));
+        add(new DateTypeItem(DateType.TIME_PACK, "使用 java.time 包下的,java8 新的时间类型"));
+    }};
+
+    private static final List<IdTypeItem> idTypes = new ArrayList<IdTypeItem>() {{
+        add(new IdTypeItem(IdType.AUTO, "数据库ID自增"));
+        add(new IdTypeItem(IdType.NONE, "该类型为未设置主键类型"));
+        add(new IdTypeItem(IdType.INPUT, "用户输入ID,可以通过自己注册自动填充插件进行填充"));
+        add(new IdTypeItem(IdType.ID_WORKER, "全局唯一ID (idWorker)"));
+        add(new IdTypeItem(IdType.UUID, "全局唯一ID (UUID)"));
+        add(new IdTypeItem(IdType.ID_WORKER_STR, "字符串全局唯一ID (idWorker 的字符串表示)"));
+    }};
+
+    private static final DateTypeItem defaultDateType = dateTypes.get(0);
+    private static final IdTypeItem defaultIdType = idTypes.get(0);
+
 
     @Override
     public void init(MainController mainController) {
@@ -58,34 +75,12 @@ public class GlobalController implements IController<GlobalConfigHolder> {
     public void initialize(URL location, ResourceBundle resources) {
         chooseGenerateDirectory = new DirectoryChooser();
         chooseGenerateDirectory.setTitle("选择导出目录");
-        dateType.getItems().addAll(getDateTypes());
-        defaultDateType =dateType.getItems().get(0);
+        dateType.getItems().addAll(dateTypes);
         dateType.setValue(defaultDateType);
-        dateType.converterProperty().set(new StringConverter<DateTypeItem>() {
-            @Override
-            public String toString(DateTypeItem object) {
-                return object.getDescription();
-            }
-
-            @Override
-            public DateTypeItem fromString(String string) {
-                return null;
-            }
-        });
-        idType.getItems().addAll(getIdTypes());
-        defaultIdType =idType.getItems().get(3);
+        dateType.converterProperty().set(new ItemStringConverter<>());
+        idType.getItems().addAll(idTypes);
         idType.setValue(defaultIdType);
-        idType.converterProperty().set(new StringConverter<IdTypeItem>() {
-            @Override
-            public String toString(IdTypeItem object) {
-                return object.getDescription();
-            }
-
-            @Override
-            public IdTypeItem fromString(String string) {
-                return null;
-            }
-        });
+        idType.converterProperty().set(new ItemStringConverter<>());
     }
 
     public void choose(MouseEvent mouseEvent) {
@@ -94,25 +89,6 @@ public class GlobalController implements IController<GlobalConfigHolder> {
             String path = file.getPath();
             outputDir.setText(path);
         }
-    }
-
-    private List<DateTypeItem> getDateTypes() {
-        return new ArrayList<DateTypeItem>() {{
-            add(new DateTypeItem(DateType.ONLY_DATE, "只使用 java.util.date 代替"));
-            add(new DateTypeItem(DateType.SQL_PACK, "使用 java.sql 包下的"));
-            add(new DateTypeItem(DateType.TIME_PACK, "使用 java.time 包下的,java8 新的时间类型"));
-        }};
-    }
-
-    private List<IdTypeItem> getIdTypes() {
-        return new ArrayList<IdTypeItem>() {{
-            add(new IdTypeItem(IdType.AUTO, "数据库ID自增"));
-            add(new IdTypeItem(IdType.NONE, "该类型为未设置主键类型"));
-            add(new IdTypeItem(IdType.INPUT, "用户输入ID,可以通过自己注册自动填充插件进行填充"));
-            add(new IdTypeItem(IdType.ID_WORKER, "全局唯一ID (idWorker)"));
-            add(new IdTypeItem(IdType.UUID, "全局唯一ID (UUID)"));
-            add(new IdTypeItem(IdType.ID_WORKER_STR, "字符串全局唯一ID (idWorker 的字符串表示)"));
-        }};
     }
 
 
@@ -157,8 +133,8 @@ public class GlobalController implements IController<GlobalConfigHolder> {
         activeRecord.setSelected(holder.isActiveRecord());
         baseResultMap.setSelected(holder.isBaseResultMap());
         baseColumnList.setSelected(holder.isBaseColumnList());
-        matchChoice(dateType, "dateType", holder.getDateType(), defaultDateType);
-        matchChoice(idType, "idType", holder.getIdType(), defaultIdType);
+        matchChoice(dateType, DateType.class, holder.getDateType(), defaultDateType);
+        matchChoice(idType, IdType.class, holder.getIdType(), defaultIdType);
 
     }
 }

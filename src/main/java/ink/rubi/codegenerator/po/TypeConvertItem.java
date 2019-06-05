@@ -12,7 +12,17 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TypeConvertItem {
+public class TypeConvertItem implements Item<ITypeConvert> {
     private ITypeConvert typeConvert;
     private String description;
+
+    @Override
+    public ITypeConvert getValue() {
+        return this.typeConvert;
+    }
+
+    @Override
+    public String getDesc() {
+        return this.description;
+    }
 }

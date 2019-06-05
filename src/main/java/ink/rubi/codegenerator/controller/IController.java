@@ -1,5 +1,8 @@
 package ink.rubi.codegenerator.controller;
 
+import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import ink.rubi.codegenerator.po.Item;
+import ink.rubi.codegenerator.po.NamingItem;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 
@@ -17,27 +20,19 @@ public interface IController<T> extends Initializable {
     default void flushConfig(T t) {
     }
 
+    /**
+     * for the communication between mainController and otherControllers.
+     * @param mainController
+     */
     void init(MainController mainController);
 
-    @SuppressWarnings("all")
-    default <C, E> void matchChoice(ChoiceBox<C> choiceBox, String fieldName, E config, C defaultConfig) {
 
-        choiceBox.getSelectionModel().select(choiceBox.getItems().stream()
-                .filter(item -> {
-                    Object obj = null;
-                    Field field = null;
-                    try {
-                        //控件内 每个类的naming域
-                        field = item.getClass().getDeclaredField(fieldName);
-                        field.setAccessible(true);
-                        //得到naming的值
-                        obj = field.get(item);
-                    } catch (Exception e) {
-
-                    }
-                    return obj.getClass().isEnum() ? obj.equals(config) : obj.getClass().isInstance(config);
-                })
-                .findAny()
-                .orElse(defaultConfig));
+    default <I extends Item, T extends Enum<T>> void matchChoice(ChoiceBox<I> box, Class<T> enumClazz, String strValue, I defaultValue) {
+        box.getSelectionModel().select(
+                box.getItems()
+                        .stream()
+                        .filter(item -> item.getValue().equals(T.valueOf(enumClazz, strValue)))
+                        .findAny()
+                        .orElse(defaultValue));
     }
 }

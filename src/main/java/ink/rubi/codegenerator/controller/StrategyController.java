@@ -1,21 +1,28 @@
 package ink.rubi.codegenerator.controller;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import ink.rubi.codegenerator.controller.converter.ItemStringConverter;
+import ink.rubi.codegenerator.po.FieldFillItem;
 import ink.rubi.codegenerator.po.NamingItem;
+import ink.rubi.codegenerator.po.TableFillRow;
 import ink.rubi.codegenerator.po.holder.StrategyConfigHolder;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.util.StringConverter;
 import lombok.Getter;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * @author : Rubi
@@ -23,10 +30,20 @@ import java.util.ResourceBundle;
  */
 @Getter
 public class StrategyController implements IController<StrategyConfigHolder> {
+   /* @FXML
+    private TableColumn fieldNameColumn,fieldFillColumn;*/
+
 
     @FXML
+    private TableColumn<TableFillRow, String> fieldNameColumn,fieldFillColumn;
+    @FXML
+    private ChoiceBox<FieldFillItem> fieldFill;
+    @FXML
+    private TableView<TableFillRow> tableFills;
+    @FXML
     private TextField tablePrefix, fieldPrefix, superEntityClass, superEntityColumns, superMapperClass,
-            superServiceClass, superServiceImplClass, superControllerClass, versionFieldName, logicDeleteFieldName;
+            superServiceClass, superServiceImplClass, superControllerClass, versionFieldName, logicDeleteFieldName,
+            fieldName;
     @FXML
     private ChoiceBox<NamingItem> naming, columnNaming;
     @FXML
@@ -38,7 +55,19 @@ public class StrategyController implements IController<StrategyConfigHolder> {
 
     private MainController mainController;
 
-    private NamingItem defaultNaming;
+
+    private static final List<NamingItem> namings = new ArrayList<NamingItem>() {{
+        add(new NamingItem(NamingStrategy.no_change, "不做任何改变，原样输出"));
+        add(new NamingItem(NamingStrategy.underline_to_camel, "下划线转驼峰命名"));
+    }};
+    private static final List<FieldFillItem> fieldFills = new ArrayList<FieldFillItem>() {{
+        add(new FieldFillItem(FieldFill.DEFAULT, "NONE"));
+        add(new FieldFillItem(FieldFill.INSERT, "插入填充"));
+        add(new FieldFillItem(FieldFill.UPDATE, "更新填充"));
+        add(new FieldFillItem(FieldFill.INSERT_UPDATE, "插入和更新填充"));
+    }};
+    private static final FieldFillItem defaultFieldFill = fieldFills.get(1);
+    private static final NamingItem defaultNaming = namings.get(1);
 
     @Override
     public void init(MainController mainController) {
@@ -47,39 +76,28 @@ public class StrategyController implements IController<StrategyConfigHolder> {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        NamingConverter<NamingItem> namingConverter = new NamingConverter<>();
+        ItemStringConverter<NamingItem> namingConverter = new ItemStringConverter<>();
 
-        naming.getItems().addAll(getNamings());
-        defaultNaming = naming.getItems().get(1);
+        naming.getItems().addAll(namings);
         naming.setValue(defaultNaming);
         naming.converterProperty().set(namingConverter);
 
-        columnNaming.getItems().addAll(getNamings());
+        columnNaming.getItems().addAll(namings);
         columnNaming.setValue(defaultNaming);
         columnNaming.converterProperty().set(namingConverter);
 
+        fieldFill.getItems().addAll(fieldFills);
+        fieldFill.setValue(defaultFieldFill);
+        fieldFill.converterProperty().set(new ItemStringConverter<>());
+
+        fieldNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getFieldName()));
+        fieldFillColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue()
+                .getFieldFillItem()
+                .getValue()
+                .name()));
+
     }
 
-
-    private List<NamingItem> getNamings() {
-        return new ArrayList<NamingItem>() {{
-            add(new NamingItem(NamingStrategy.no_change, "不做任何改变，原样输出"));
-            add(new NamingItem(NamingStrategy.underline_to_camel, "下划线转驼峰命名"));
-        }};
-    }
-
-    private class NamingConverter<T extends NamingItem> extends StringConverter<T> {
-
-        @Override
-        public String toString(T object) {
-            return object.getDescription();
-        }
-
-        @Override
-        public T fromString(String string) {
-            return null;
-        }
-    }
 
     @Override
     public StrategyConfigHolder getConfigHolder() {
@@ -106,8 +124,25 @@ public class StrategyController implements IController<StrategyConfigHolder> {
                 .setLogicDeleteFieldName(logicDeleteFieldName.getText())
                 .setSkipView(skipView.isSelected())
                 .setCapitalMode(isCapitalMode.isSelected())
-                .setTableFillList(null);
+                .setInclude(mainController.getTypeIn().getText())
+                .setTableFillList(convertToMap(tableFills.getItems()));
 
+    }
+
+    private Map<String, String> convertToMap(List<TableFillRow> items) {
+        return items.stream().collect(Collectors
+                .toMap(TableFillRow::getFieldName, tableFillRow ->
+                        tableFillRow.getFieldFillItem().getValue().name()));
+    }
+
+    private List<TableFillRow> convertToRow(Map<String, String> items) {
+        return StrategyConfigHolder.convertToList(items).stream().map(tableFill -> {
+            FieldFillItem value = fieldFills.stream()
+                    .filter(item -> item.getValue().equals(tableFill.getFieldFill()))
+                    .findAny()
+                    .orElse(defaultFieldFill);
+            return new TableFillRow(tableFill.getFieldName(), value);
+        }).collect(Collectors.toList());
     }
 
     @Override
@@ -132,10 +167,24 @@ public class StrategyController implements IController<StrategyConfigHolder> {
         controllerMappingHyphenStyle.setSelected(holder.isControllerMappingHyphenStyle());
         skipView.setSelected(holder.isSkipView());
         isCapitalMode.setSelected(holder.isCapitalMode());
-        matchChoice(naming, "namingStrategy", holder.getNaming(), defaultNaming);
-        matchChoice(columnNaming, "namingStrategy", holder.getColumnNaming(), defaultNaming);
+
+        matchChoice(naming, NamingStrategy.class, holder.getNaming(), defaultNaming);
+        matchChoice(columnNaming, NamingStrategy.class, holder.getColumnNaming(), defaultNaming);
+
+        tableFills.getItems().addAll(convertToRow(holder.getTableFillList()));
+
     }
 
+    public void insert(ActionEvent actionEvent) {
+        String key = fieldName.getText();
+        FieldFillItem value = fieldFill.getSelectionModel().selectedItemProperty().getValue();
+        tableFills.getItems().add(new TableFillRow(key, value));
+    }
 
+    public void delete(ActionEvent actionEvent) {
+        tableFills.getItems().remove(
+                tableFills.getSelectionModel().selectedItemProperty().getValue()
+        );
+    }
 }
 

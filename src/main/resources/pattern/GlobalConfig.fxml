@@ -17,7 +17,7 @@
     <Label text="时间类型对应策略" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
     <ChoiceBox fx:id="dateType" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-    <Label text="指定生成的主键的ID类型" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+    <Label text="指定生成的主键的ID类型" styleClass="whiteLabel" prefWidth="144" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
     <ChoiceBox fx:id="idType" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
     <Label text="各层文件名称方式" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="4"/>

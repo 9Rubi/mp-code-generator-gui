@@ -43,12 +43,10 @@ public class App extends Application {
 
         window = primaryStage;
         window.setResizable(false);
+//        window.setMax
         window.setTitle("Mybatis-plus代码生成器GUI");
 
-        log.info("loading layout and css");
         scene = new Scene(layout);
-        scene.getStylesheets().add("/pattern/App.css");
-
         window.setScene(scene);
         window.show();
     }

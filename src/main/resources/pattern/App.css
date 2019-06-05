@@ -43,3 +43,10 @@
 .submit {
     -fx-pref-width: 100;
 }
+
+.tableFills-cols {
+    -fx-font-family: "Microsoft YaHei UI";
+    -fx-max-width: 5000;
+    -fx-min-width: 10;
+    -fx-pref-width: 137;
+}
