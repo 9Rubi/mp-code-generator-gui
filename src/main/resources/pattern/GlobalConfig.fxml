@@ -1,10 +1,7 @@
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <GridPane fx:id="globalPage" styleClass="centerPane" vgap="10" hgap="10" xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ink.rubi.codegenerator.controller.GlobalController">
+          fx:controller="ink.rubi.coffee.controller.GlobalController">
 
     <Label text="生成文件的输出目录" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
     <TextField fx:id="outputDir" text="D:\generate-code"

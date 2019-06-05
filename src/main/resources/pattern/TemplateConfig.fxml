@@ -3,42 +3,53 @@
 <GridPane fx:id="packagePage" styleClass="centerPane"
           vgap="10" hgap="10" xmlns="http://javafx.com/javafx/8.0.172"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ink.rubi.codegenerator.controller.TemplateController">
+          fx:controller="ink.rubi.coffee.controller.TemplateController">
 
+    <Label text="engine模板" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <ChoiceBox fx:id="engine" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-    <Label text="Entity模板" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-    <TextField fx:id="entity" onMouseClicked="#chooseEntity" text="/templates/entity.java" prefWidth="720" styleClass="leftTextField" GridPane.columnIndex="1"
-               GridPane.rowIndex="0"/>
-
-    <Label text="entityKt模板" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-    <TextField fx:id="entityKt" onMouseClicked="#chooseEntityKt" text="/templates/entity.kt" styleClass="leftTextField" GridPane.columnIndex="1"
+    <Label fx:id="entityLabel" text="Entity模板" styleClass="whiteLabel" visible="false" GridPane.columnIndex="0"
+           GridPane.rowIndex="1"/>
+    <TextField fx:id="entity" onMouseClicked="#chooseEntity" visible="false" prefWidth="720" styleClass="leftTextField"
+               GridPane.columnIndex="1"
                GridPane.rowIndex="1"/>
 
-    <Label text="mapper模板" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-    <TextField fx:id="mapper" onMouseClicked="#chooseMapper" text="/templates/mapper.java" styleClass="leftTextField" GridPane.columnIndex="1"
+    <Label fx:id="entityKtLabel" text="entityKt模板" styleClass="whiteLabel" visible="false" GridPane.columnIndex="0"
+           GridPane.rowIndex="2"/>
+    <TextField fx:id="entityKt" onMouseClicked="#chooseEntityKt" visible="false" styleClass="leftTextField"
+               GridPane.columnIndex="1"
                GridPane.rowIndex="2"/>
 
-
-    <Label text="xml模板" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-    <TextField fx:id="xml" onMouseClicked="#chooseXml" text="/templates/mapper.xml" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-
-
-    <Label text="service模板" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-    <TextField fx:id="service" onMouseClicked="#chooseService" text="/templates/service.java" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-
-    <Label text="serviceImpl模板" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-    <TextField fx:id="serviceImpl" onMouseClicked="#chooseServiceImpl" text="/templates/serviceImpl.java" styleClass="leftTextField" GridPane.columnIndex="1"
-               GridPane.rowIndex="5"/>
+    <Label fx:id="mapperLabel" text="mapper模板" styleClass="whiteLabel" visible="false" GridPane.columnIndex="0"
+           GridPane.rowIndex="3"/>
+    <TextField fx:id="mapper" onMouseClicked="#chooseMapper" visible="false" styleClass="leftTextField"
+               GridPane.columnIndex="1"
+               GridPane.rowIndex="3"/>
 
 
-    <Label text="controller模板" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-    <TextField fx:id="controller" onMouseClicked="#chooseController" text="/templates/controller.java" styleClass="leftTextField" GridPane.columnIndex="1"
+    <Label fx:id="xmlLabel" text="xml模板" styleClass="whiteLabel" visible="false" GridPane.columnIndex="0"
+           GridPane.rowIndex="4"/>
+    <TextField fx:id="xml" onMouseClicked="#chooseXml" visible="false" styleClass="leftTextField"
+               GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+
+    <Label fx:id="serviceLabel" text="service模板" styleClass="whiteLabel" GridPane.columnIndex="0" visible="false"
+           GridPane.rowIndex="5"/>
+    <TextField fx:id="service" onMouseClicked="#chooseService" visible="false" styleClass="leftTextField"
+               GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+    <Label fx:id="serviceImplLabel" text="serviceImpl模板" styleClass="whiteLabel" GridPane.columnIndex="0"
+           visible="false" GridPane.rowIndex="6"/>
+    <TextField fx:id="serviceImpl" onMouseClicked="#chooseServiceImpl" visible="false" styleClass="leftTextField"
+               GridPane.columnIndex="1"
                GridPane.rowIndex="6"/>
 
-    <Label text="engine模板" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-    <ChoiceBox fx:id="engine" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
 
-
+    <Label fx:id="controllerLabel" text="controller模板" styleClass="whiteLabel" GridPane.columnIndex="0" visible="false"
+           GridPane.rowIndex="7"/>
+    <TextField fx:id="controller" onMouseClicked="#chooseController" visible="false" styleClass="leftTextField"
+               GridPane.columnIndex="1"
+               GridPane.rowIndex="7"/>
 
 
 </GridPane>

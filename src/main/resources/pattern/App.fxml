@@ -5,7 +5,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="880.0"
             prefWidth="1100.0" stylesheets="/pattern/App.css"
             xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ink.rubi.codegenerator.controller.MainController">
+            fx:controller="ink.rubi.coffee.controller.MainController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
