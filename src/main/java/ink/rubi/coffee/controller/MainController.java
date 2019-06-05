@@ -31,6 +31,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 
 /**
  * @author : Rubi
@@ -46,7 +47,7 @@ public class MainController implements Initializable {
     @FXML
     private TextArea typeIn, console;
     @FXML
-    private GridPane global, dataSource, strategy, packageConf,template;
+    private GridPane global, dataSource, strategy, packageConf, template;
     @FXML
     private TabPane tabPane;
     @FXML
@@ -64,6 +65,13 @@ public class MainController implements Initializable {
 
     private ObjectMapper objectMapper;
 
+
+    private void init(IController... controllers) {
+        Stream.of(controllers).forEach(controller -> {
+            controller.init(this);
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         console.setEditable(false);
@@ -74,11 +82,10 @@ public class MainController implements Initializable {
         configFileChooser.setTitle("选择配置元数据文件");
         configFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("配置文件", "*.json"));
 
-        dataSourceController.init(this);
-        globalController.init(this);
-        strategyController.init(this);
-        packageConfController.init(this);
-        templateController.init(this);
+        init(dataSourceController, globalController,
+                strategyController, packageConfController,
+                templateController);
+
         if (GUIConfig.showLogInGUIWindow) {
             try {
                 redirectSystemOut();
