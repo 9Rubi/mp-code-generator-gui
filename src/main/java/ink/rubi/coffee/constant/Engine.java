@@ -17,7 +17,7 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -28,7 +28,7 @@ import java.util.Properties;
 public class Engine {
     public static final String custom = "velocity-custom";
 
-    public static final Map<String, AbstractTemplateEngine> engines = Collections.unmodifiableMap(new HashMap<String, AbstractTemplateEngine>() {{
+    public static final Map<String, AbstractTemplateEngine> engines = Collections.unmodifiableMap(new LinkedHashMap<String, AbstractTemplateEngine>() {{
         put("velocity", new VelocityTemplateEngine());
         put("freemarker", new FreemarkerTemplateEngine());
         put("beetl", new BeetlTemplateEngine());

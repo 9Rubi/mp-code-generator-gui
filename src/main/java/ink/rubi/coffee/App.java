@@ -34,10 +34,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        window = primaryStage;
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pattern/App.fxml"));
         layout = fxmlLoader.load();
 
-        window = primaryStage;
         window.setResizable(false);
 //        window.setMax
         window.setTitle("Mybatis-plus代码生成器GUI");

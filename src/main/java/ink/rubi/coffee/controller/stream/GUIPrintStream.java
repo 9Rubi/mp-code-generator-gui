@@ -1,5 +1,6 @@
 package ink.rubi.coffee.controller.stream;
 
+import com.baomidou.mybatisplus.generator.config.ConstVal;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author : Rubi
@@ -20,7 +20,7 @@ public class GUIPrintStream extends PrintStream {
     private TextArea guiConsole;
 
     public GUIPrintStream(OutputStream out, TextArea guiConsole) throws FileNotFoundException, UnsupportedEncodingException {
-        super(out, true, StandardCharsets.UTF_8.name());
+        super(out, true, ConstVal.UTF8);
         this.guiConsole = guiConsole;
     }
 
@@ -28,7 +28,7 @@ public class GUIPrintStream extends PrintStream {
     public void write(byte[] buf, int off, int len) {
         final String message;
         try {
-            message = new String(buf, off, len, StandardCharsets.UTF_8.name());
+            message = new String(buf, off, len, ConstVal.UTF8);
             Platform.runLater(() -> guiConsole.appendText(message));
         } catch (Exception e) {
             log.error("{0}", e);

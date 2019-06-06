@@ -1,6 +1,7 @@
 package ink.rubi.coffee.controller;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,7 +19,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import javafx.stage.Window;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,6 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
@@ -63,17 +63,17 @@ public class MainController implements Initializable {
     @FXML
     private BorderPane root;
 
-    private Stage window;
-
     private FileChooser configFileChooser;
 
     private ObjectMapper objectMapper;
 
 
     private void init(IController... controllers) {
-        Stream.of(controllers).forEach(controller -> {
-            controller.init(this);
-        });
+        Stream.of(controllers).forEach(controller -> controller.init(this));
+    }
+
+    public Window getWindow() {
+        return root.getScene().getWindow();
     }
 
     @Override
@@ -86,13 +86,11 @@ public class MainController implements Initializable {
         configFileChooser.setTitle("选择配置元数据文件");
         configFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("配置文件", "*.json"));
 
-        window = (Stage) root.getScene().getWindow();
-
         if (GUIConfig.isShowLogInGUIWindow()) {
             try {
                 redirectSystemOut();
             } catch (FileNotFoundException | UnsupportedEncodingException e) {
-                log.error("{}", e);
+                log.error("{0}", e);
             }
         }
 
@@ -125,6 +123,7 @@ public class MainController implements Initializable {
             try {
                 log.warn("{}", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(configContainer));
             } catch (JsonProcessingException e) {
+                log.error("{0}", e);
             }
 
         }
@@ -132,9 +131,8 @@ public class MainController implements Initializable {
         AllConfig allConfig = configContainer.convert();
 
         String[] tableNames = typeIn.getText().split("\\r?\\n");
-        for (String tableName : tableNames) {
-            //全角空格懒得管了
-            tableName = tableName.trim();
+        for (int i = 0; i < tableNames.length; i++) {
+            tableNames[i] = tableNames[i].trim();
         }
         StrategyConfig strategyConfig = allConfig.getStrategyConfig();
         strategyConfig.setInclude(tableNames);
@@ -162,21 +160,21 @@ public class MainController implements Initializable {
         try {
             Desktop.getDesktop().browse(new URI("https://github.com/9Rubi/mp-code-generator-gui"));
         } catch (IOException | URISyntaxException e) {
-            log.error("{}", e);
+            log.error("{0}", e);
         }
     }
 
 
     public void readFromFile(ActionEvent actionEvent) {
-        File file = configFileChooser.showOpenDialog(window);
+        File file = configFileChooser.showOpenDialog(getWindow());
         if (file != null) {
-            AllConfigHolder container = null;
+            AllConfigHolder container;
             try {
                 container = getObjectMapper().readValue(file, AllConfigHolder.class);
                 flushAllConfig(container);
                 log.info("读取成功!");
             } catch (Exception e) {
-                log.error("{}", e);
+                log.error("{0}", e);
             }
         }
     }
@@ -195,14 +193,14 @@ public class MainController implements Initializable {
 
     public void saveToFile(ActionEvent actionEvent) {
         configFileChooser.setInitialFileName("config.json");
-        File file = configFileChooser.showSaveDialog(window);
+        File file = configFileChooser.showSaveDialog(getWindow());
         if (file != null) {
-            try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), ConstVal.UTF8))) {
                 writer.write(getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(getAllConfigHolder()));
                 writer.flush();
                 AlertBox.display("提示", "导出成功！");
             } catch (IOException e) {
-                log.error("{}", e);
+                log.error("{0}", e);
                 AlertBox.display("异常", "异常为 " + e.getClass().getSimpleName());
             }
 
