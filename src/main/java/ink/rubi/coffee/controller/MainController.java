@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ink.rubi.coffee.App;
 import ink.rubi.coffee.config.GUIConfig;
 import ink.rubi.coffee.controller.stream.GUIPrintStream;
 import ink.rubi.coffee.modal.AlertBox;
@@ -16,20 +15,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
@@ -37,11 +36,12 @@ import java.util.stream.Stream;
  * @author : Rubi
  * @version : 2019-05-17 12:14 下午
  */
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 @Getter
 public class MainController implements Initializable {
 
     private static final Logger log = LoggerFactory.getLogger("[MainController]");
+
     @FXML
     private Button button;
     @FXML
@@ -60,6 +60,10 @@ public class MainController implements Initializable {
     private PackageConfController packageConfController;
     @FXML
     private TemplateController templateController;
+    @FXML
+    private BorderPane root;
+
+    private Stage window;
 
     private FileChooser configFileChooser;
 
@@ -82,17 +86,21 @@ public class MainController implements Initializable {
         configFileChooser.setTitle("选择配置元数据文件");
         configFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("配置文件", "*.json"));
 
+        window = (Stage) root.getScene().getWindow();
+
+        if (GUIConfig.isShowLogInGUIWindow()) {
+            try {
+                redirectSystemOut();
+            } catch (FileNotFoundException | UnsupportedEncodingException e) {
+                log.error("{}", e);
+            }
+        }
+
         init(dataSourceController, globalController,
                 strategyController, packageConfController,
                 templateController);
 
-        if (GUIConfig.showLogInGUIWindow) {
-            try {
-                redirectSystemOut();
-            } catch (FileNotFoundException e) {
-                log.error("{}", e);
-            }
-        }
+
     }
 
     private AllConfigHolder getAllConfigHolder() {
@@ -113,7 +121,7 @@ public class MainController implements Initializable {
 
 
     private void executeGenerator(AllConfigHolder configContainer) {
-        if (GUIConfig.logConfigInfoWhenGenerateCode) {
+        if (GUIConfig.isLogConfigInfoWhenGenerateCode()) {
             try {
                 log.warn("{}", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(configContainer));
             } catch (JsonProcessingException e) {
@@ -144,7 +152,7 @@ public class MainController implements Initializable {
         }
     }
 
-    private void redirectSystemOut() throws FileNotFoundException {
+    private void redirectSystemOut() throws FileNotFoundException, UnsupportedEncodingException {
         GUIPrintStream guiPrintStream = new GUIPrintStream(System.out, console);
         System.setOut(guiPrintStream);
         System.setErr(guiPrintStream);
@@ -160,7 +168,7 @@ public class MainController implements Initializable {
 
 
     public void readFromFile(ActionEvent actionEvent) {
-        File file = configFileChooser.showOpenDialog(App.getWindow());
+        File file = configFileChooser.showOpenDialog(window);
         if (file != null) {
             AllConfigHolder container = null;
             try {
@@ -187,16 +195,17 @@ public class MainController implements Initializable {
 
     public void saveToFile(ActionEvent actionEvent) {
         configFileChooser.setInitialFileName("config.json");
-        File file = configFileChooser.showSaveDialog(App.getWindow());
+        File file = configFileChooser.showSaveDialog(window);
         if (file != null) {
-            try (FileWriter writer = new FileWriter(file)) {
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
                 writer.write(getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(getAllConfigHolder()));
                 writer.flush();
+                AlertBox.display("提示", "导出成功！");
             } catch (IOException e) {
                 log.error("{}", e);
                 AlertBox.display("异常", "异常为 " + e.getClass().getSimpleName());
             }
-            AlertBox.display("提示", "导出成功！");
+
         }
     }
 

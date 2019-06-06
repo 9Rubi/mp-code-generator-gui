@@ -14,16 +14,12 @@ import org.slf4j.LoggerFactory;
  * @author : Rubi
  * @version : 2019-05-17 01:51 上午
  */
-
+@Getter
 public class App extends Application {
-    @Getter
     private static final Logger log = LoggerFactory.getLogger("[MAIN]");
 
-    @Getter
-    private static Stage window;
-    @Getter
+    private Stage window;
     private Scene scene;
-    @Getter
     private Parent layout;
 
     public static void main(String[] args) {

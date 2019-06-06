@@ -12,16 +12,17 @@ import java.util.ResourceBundle;
  * @author : Rubi
  * @version : 2019-05-18 17:30 下午
  */
+@SuppressWarnings("unused")
 public class PackageConfController implements IController<PackageConfigHolder> {
     @FXML
     public TextField parent, moduleName, entity, service, serviceImpl, mapper, xml, controller;
     @FXML
     private GridPane packagePage;
-    private MainController mainController;
+//    private MainController mainController;
 
     @Override
     public void init(MainController mainController) {
-        this.mainController = mainController;
+//        this.mainController = mainController;
     }
 
     @Override

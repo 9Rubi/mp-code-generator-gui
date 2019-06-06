@@ -2,7 +2,6 @@ package ink.rubi.coffee.controller;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
-import ink.rubi.coffee.App;
 import ink.rubi.coffee.controller.converter.ItemStringConverter;
 import ink.rubi.coffee.po.DateTypeItem;
 import ink.rubi.coffee.po.IdTypeItem;
@@ -84,7 +83,7 @@ public class GlobalController implements IController<GlobalConfigHolder> {
     }
 
     public void choose(MouseEvent mouseEvent) {
-        File file = chooseGenerateDirectory.showDialog(App.getWindow());
+        File file = chooseGenerateDirectory.showDialog(mainController.getWindow());
         if (file != null) {
             String path = file.getPath();
             outputDir.setText(path);

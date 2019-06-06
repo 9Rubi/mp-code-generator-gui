@@ -1,7 +1,6 @@
 package ink.rubi.coffee.controller;
 
 import com.baomidou.mybatisplus.generator.config.ConstVal;
-import ink.rubi.coffee.App;
 import ink.rubi.coffee.constant.Engine;
 import ink.rubi.coffee.po.holder.TemplateConfigHolder;
 import javafx.fxml.FXML;
@@ -106,28 +105,28 @@ public class TemplateController implements IController<TemplateConfigHolder> {
 
 
     public void chooseEntity(MouseEvent mouseEvent) {
-        File file = fileChooser.showOpenDialog(App.getWindow());
+        File file = fileChooser.showOpenDialog(mainController.getWindow());
         if (file != null) {
             entity.setText(file.getPath());
         }
     }
 
     public void chooseEntityKt(MouseEvent mouseEvent) {
-        File file = fileChooser.showOpenDialog(App.getWindow());
+        File file = fileChooser.showOpenDialog(mainController.getWindow());
         if (file != null) {
             entityKt.setText(file.getPath());
         }
     }
 
     public void chooseMapper(MouseEvent mouseEvent) {
-        File file = fileChooser.showOpenDialog(App.getWindow());
+        File file = fileChooser.showOpenDialog(mainController.getWindow());
         if (file != null) {
             mapper.setText(file.getPath());
         }
     }
 
     public void chooseXml(MouseEvent mouseEvent) {
-        File file = fileChooser.showOpenDialog(App.getWindow());
+        File file = fileChooser.showOpenDialog(mainController.getWindow());
         if (file != null) {
             xml.setText(file.getPath());
         }
@@ -135,21 +134,21 @@ public class TemplateController implements IController<TemplateConfigHolder> {
 
     public void chooseService(MouseEvent mouseEvent) {
 
-        File file = fileChooser.showOpenDialog(App.getWindow());
+        File file = fileChooser.showOpenDialog(mainController.getWindow());
         if (file != null) {
             service.setText(file.getPath());
         }
     }
 
     public void chooseServiceImpl(MouseEvent mouseEvent) {
-        File file = fileChooser.showOpenDialog(App.getWindow());
+        File file = fileChooser.showOpenDialog(mainController.getWindow());
         if (file != null) {
             serviceImpl.setText(file.getPath());
         }
     }
 
     public void chooseController(MouseEvent mouseEvent) {
-        File file = fileChooser.showOpenDialog(App.getWindow());
+        File file = fileChooser.showOpenDialog(mainController.getWindow());
         if (file != null) {
             controller.setText(file.getPath());
         }
