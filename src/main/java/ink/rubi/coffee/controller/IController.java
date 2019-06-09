@@ -18,10 +18,12 @@ public interface IController<T> extends Initializable {
 
     /**
      * for the communication between mainController and otherControllers.
+     *
      * @param mainController
      */
     void init(MainController mainController);
 
+    void defaultShow();
 
     default <I extends Item, T extends Enum<T>> void matchChoice(ChoiceBox<I> box, Class<T> enumClazz, String strValue, I defaultValue) {
         box.getSelectionModel().select(

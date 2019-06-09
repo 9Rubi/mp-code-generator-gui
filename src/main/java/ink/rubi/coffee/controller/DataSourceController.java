@@ -27,7 +27,7 @@ public class DataSourceController implements IController<DataSourceConfigHolder>
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        defaultShow();
     }
 
     @Override
@@ -45,6 +45,16 @@ public class DataSourceController implements IController<DataSourceConfigHolder>
     public void init(MainController mainController) {
         this.mainController = mainController;
     }
+
+    @Override
+    public void defaultShow() {
+        url.setText("jdbc:mysql://localhost:3306/table_name?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        driverName.setText("com.mysql.jdbc.Driver");
+        username.setText("root");
+        password.clear();
+        schemaName.clear();
+    }
+
 
     @Override
     public void flushConfig(DataSourceConfigHolder dataSourceConfig) {

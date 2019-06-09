@@ -26,7 +26,20 @@ public class PackageConfController implements IController<PackageConfigHolder> {
     }
 
     @Override
+    public void defaultShow() {
+        parent.setText("com.baomidou");
+        moduleName.clear();
+        entity.setText("entity");
+        service.setText("service");
+        serviceImpl.setText("service.impl");
+        mapper.setText("mapper");
+        xml.setText("mapper.xml");
+        controller.setText("controller");
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
+        defaultShow();
 
     }
 

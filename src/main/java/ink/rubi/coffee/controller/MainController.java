@@ -209,6 +209,16 @@ public class MainController implements Initializable {
 
 
     public void onClear(ActionEvent actionEvent) {
-        console.setText("");
+        console.clear();
+    }
+
+    public void onDefault(ActionEvent actionEvent) {
+        showDefault(dataSourceController, globalController,
+                strategyController, packageConfController,
+                templateController);
+    }
+
+    private void showDefault(IController... controllers) {
+        Stream.of(controllers).forEach(IController::defaultShow);
     }
 }

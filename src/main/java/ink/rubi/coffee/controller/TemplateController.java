@@ -8,6 +8,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +24,8 @@ import java.util.ResourceBundle;
  */
 @Slf4j
 public class TemplateController implements IController<TemplateConfigHolder> {
+    @FXML
+    private GridPane templatePage;
     @FXML
     private Label entityLabel, entityKtLabel, mapperLabel, xmlLabel, serviceLabel, serviceImplLabel, controllerLabel;
     @FXML
@@ -67,9 +70,21 @@ public class TemplateController implements IController<TemplateConfigHolder> {
     }
 
     @Override
+    public void defaultShow() {
+        engine.setValue(defaultEngine);
+        entityKt.setText(ConstVal.TEMPLATE_ENTITY_KT);
+        entity.setText(ConstVal.TEMPLATE_ENTITY_JAVA);
+        service.setText(ConstVal.TEMPLATE_SERVICE);
+        serviceImpl.setText(ConstVal.TEMPLATE_SERVICE_IMPL);
+        mapper.setText(ConstVal.TEMPLATE_MAPPER);
+        xml.setText(ConstVal.TEMPLATE_XML);
+        controller.setText(ConstVal.TEMPLATE_CONTROLLER);
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         engine.getItems().addAll(engines);
-        engine.setValue(defaultEngine);
+        defaultShow();
         engine.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             boolean oldResult = oldValue.equals(Engine.custom);
             boolean newResult = newValue.equals(Engine.custom);

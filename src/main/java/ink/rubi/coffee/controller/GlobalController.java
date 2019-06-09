@@ -71,15 +71,36 @@ public class GlobalController implements IController<GlobalConfigHolder> {
     }
 
     @Override
+    public void defaultShow() {
+        outputDir.setText("D:\\generate-code");
+        author.clear();
+        entityName.clear();
+        mapperName.clear();
+        xmlName.clear();
+        serviceName.clear();
+        serviceImplName.clear();
+        controllerName.clear();
+        open.setSelected(true);
+        fileOverride.setSelected(false);
+        enableCache.setSelected(false);
+        kotlin.setSelected(false);
+        swagger2.setSelected(true);
+        activeRecord.setSelected(false);
+        baseResultMap.setSelected(true);
+        baseColumnList.setSelected(true);
+        dateType.setValue(defaultDateType);
+        idType.setValue(defaultIdType);
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         chooseGenerateDirectory = new DirectoryChooser();
         chooseGenerateDirectory.setTitle("选择导出目录");
         dateType.getItems().addAll(dateTypes);
-        dateType.setValue(defaultDateType);
         dateType.converterProperty().set(new ItemStringConverter<>());
         idType.getItems().addAll(idTypes);
-        idType.setValue(defaultIdType);
         idType.converterProperty().set(new ItemStringConverter<>());
+        defaultShow();
     }
 
     public void choose(MouseEvent mouseEvent) {

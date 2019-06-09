@@ -18,16 +18,13 @@
     <TextField fx:id="superEntityColumns" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
     <Label text="自定义继承的Mapper类全称" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-    <TextField fx:id="superMapperClass" text="com.baomidou.mybatisplus.core.mapper.BaseMapper"
-               styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <TextField fx:id="superMapperClass" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
     <Label text="自定义继承的Service类全称" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-    <TextField fx:id="superServiceClass" text="com.baomidou.mybatisplus.extension.service.IService"
-               styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <TextField fx:id="superServiceClass" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
     <Label text="自定义继承的ServiceImpl类全称" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-    <TextField fx:id="superServiceImplClass" text="com.baomidou.mybatisplus.extension.service.impl.ServiceImpl"
-               styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    <TextField fx:id="superServiceImplClass" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
 
     <Label text="自定义继承的Controller类全称" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
     <TextField fx:id="superControllerClass" styleClass="leftTextField" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
@@ -55,7 +52,7 @@
     <VBox GridPane.columnIndex="1" GridPane.rowIndex="12" spacing="10">
         <HBox spacing="10">
             <!--key-->
-            <TextField fx:id="fieldName" text="create_time" prefWidth="100" styleClass="leftTextField"/>
+            <TextField fx:id="fieldName" prefWidth="100" styleClass="leftTextField"/>
             <!--value-->
             <ChoiceBox fx:id="fieldFill" prefWidth="100" styleClass="leftTextField"/>
         </HBox>
@@ -66,29 +63,29 @@
     </VBox>
 
     <Label text="实体是否生成 serialVersionUID" styleClass="whiteLabel" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-    <CheckBox fx:id="entitySerialVersionUID" selected="true" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
+    <CheckBox fx:id="entitySerialVersionUID" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
 
     <Label text="实体是否生成字段常量" styleClass="whiteLabel" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
     <CheckBox fx:id="entityColumnConstant" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
 
     <Label text="实体是否生成字段注解" styleClass="whiteLabel" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
-    <CheckBox fx:id="entityTableFieldAnnotationEnable" selected="true" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
+    <CheckBox fx:id="entityTableFieldAnnotationEnable" GridPane.columnIndex="4" GridPane.rowIndex="2"/>
 
 
     <Label text="是否为构建者模型" styleClass="whiteLabel" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
     <CheckBox fx:id="entityBuilderModel" GridPane.columnIndex="4" GridPane.rowIndex="3"/>
 
     <Label text="是否为lombok模型" styleClass="whiteLabel" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
-    <CheckBox fx:id="entityLombokModel" selected="true" GridPane.columnIndex="4" GridPane.rowIndex="4"/>
+    <CheckBox fx:id="entityLombokModel" GridPane.columnIndex="4" GridPane.rowIndex="4"/>
 
     <Label text="Boolean类型字段是否移除is前缀" styleClass="whiteLabel" GridPane.columnIndex="3" GridPane.rowIndex="5"/>
     <CheckBox fx:id="entityBooleanColumnRemoveIsPrefix" GridPane.columnIndex="4" GridPane.rowIndex="5"/>
 
     <Label text="控制器是否生成@RestController" styleClass="whiteLabel" GridPane.columnIndex="3" GridPane.rowIndex="6"/>
-    <CheckBox fx:id="restControllerStyle" selected="true" GridPane.columnIndex="4" GridPane.rowIndex="6"/>
+    <CheckBox fx:id="restControllerStyle" GridPane.columnIndex="4" GridPane.rowIndex="6"/>
 
     <Label text="控制器映射是否驼峰转连字符" styleClass="whiteLabel" GridPane.columnIndex="3" GridPane.rowIndex="7"/>
-    <CheckBox fx:id="controllerMappingHyphenStyle" selected="true" GridPane.columnIndex="4" GridPane.rowIndex="7"/>
+    <CheckBox fx:id="controllerMappingHyphenStyle" GridPane.columnIndex="4" GridPane.rowIndex="7"/>
 
     <Label text="是否大写命名" styleClass="whiteLabel" GridPane.columnIndex="3" GridPane.rowIndex="8"/>
     <CheckBox fx:id="isCapitalMode" GridPane.columnIndex="4" GridPane.rowIndex="8"/>

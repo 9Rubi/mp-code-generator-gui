@@ -4,7 +4,7 @@
           fx:controller="ink.rubi.coffee.controller.GlobalController">
 
     <Label text="生成文件的输出目录" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-    <TextField fx:id="outputDir" text="D:\generate-code"
+    <TextField fx:id="outputDir"
                prefWidth="435"
                styleClass="leftTextField" onMouseClicked="#choose" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 

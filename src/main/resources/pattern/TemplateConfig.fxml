@@ -1,6 +1,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane fx:id="packagePage" styleClass="centerPane"
+<GridPane fx:id="templatePage" styleClass="centerPane"
           vgap="10" hgap="10" xmlns="http://javafx.com/javafx/8.0.172"
           xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="ink.rubi.coffee.controller.TemplateController">

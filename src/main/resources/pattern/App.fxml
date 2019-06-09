@@ -76,6 +76,9 @@
 
             <bottom>
                 <AnchorPane>
+                    <Button text="还原默认" styleClass="submit" onAction="#onDefault"
+                            AnchorPane.bottomAnchor="10.0"
+                            AnchorPane.rightAnchor="230.0"/>
                     <Button text="清屏" styleClass="submit" onAction="#onClear"
                             AnchorPane.bottomAnchor="10.0"
                             AnchorPane.rightAnchor="120.0"/>

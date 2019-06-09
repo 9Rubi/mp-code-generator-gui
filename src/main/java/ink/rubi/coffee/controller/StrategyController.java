@@ -32,7 +32,7 @@ public class StrategyController implements IController<StrategyConfigHolder> {
 
 
     @FXML
-    private TableColumn<TableFillRow, String> fieldNameColumn,fieldFillColumn;
+    private TableColumn<TableFillRow, String> fieldNameColumn, fieldFillColumn;
     @FXML
     private ChoiceBox<FieldFillItem> fieldFill;
     @FXML
@@ -72,19 +72,48 @@ public class StrategyController implements IController<StrategyConfigHolder> {
     }
 
     @Override
+    public void defaultShow() {
+        naming.setValue(defaultNaming);
+        columnNaming.setValue(defaultNaming);
+        fieldFill.setValue(defaultFieldFill);
+        fieldName.setText("create_time");
+        superMapperClass.setText("com.baomidou.mybatisplus.core.mapper.BaseMapper");
+        superServiceClass.setText("com.baomidou.mybatisplus.extension.service.IService");
+        superServiceImplClass.setText("com.baomidou.mybatisplus.extension.service.impl.ServiceImpl");
+
+        tablePrefix.clear();
+        fieldPrefix.clear();
+        superEntityClass.clear();
+        superEntityColumns.clear();
+        superControllerClass.clear();
+        versionFieldName.clear();
+        logicDeleteFieldName.clear();
+
+
+        entitySerialVersionUID.setSelected(true);
+        entityTableFieldAnnotationEnable.setSelected(true);
+        entityLombokModel.setSelected(true);
+        restControllerStyle.setSelected(true);
+        controllerMappingHyphenStyle.setSelected(true);
+        tableFills.getItems().clear();
+        entityColumnConstant.setSelected(false);
+        entityBuilderModel.setSelected(false);
+        entityBooleanColumnRemoveIsPrefix.setSelected(false);
+        skipView.setSelected(false);
+        isCapitalMode.setSelected(false);
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         ItemStringConverter<NamingItem> namingConverter = new ItemStringConverter<>();
 
         naming.getItems().addAll(namings);
-        naming.setValue(defaultNaming);
         naming.converterProperty().set(namingConverter);
 
         columnNaming.getItems().addAll(namings);
-        columnNaming.setValue(defaultNaming);
         columnNaming.converterProperty().set(namingConverter);
 
         fieldFill.getItems().addAll(fieldFills);
-        fieldFill.setValue(defaultFieldFill);
         fieldFill.converterProperty().set(new ItemStringConverter<>());
 
         fieldNameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getFieldName()));
@@ -92,7 +121,7 @@ public class StrategyController implements IController<StrategyConfigHolder> {
                 .getFieldFillItem()
                 .getValue()
                 .name()));
-
+        defaultShow();
     }
 
 
