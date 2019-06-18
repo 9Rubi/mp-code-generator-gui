@@ -99,6 +99,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>coffee</finalName>
         <plugins>
             <plugin>
                 <groupId>com.zenjava</groupId>
@@ -108,7 +109,7 @@
                     <mainClass>ink.rubi.coffee.App</mainClass>
                     <vendor>ink.rubi</vendor>
                     <appName>${project.build.finalName}</appName>
-                    <deployDir>${basedir}/src/main/resources/images/logo/mp.ico</deployDir>
+                    <deployDir>${basedir}\src\main\deploy</deployDir>
                     <needMenu>true</needMenu>
                     <needShortcut>true</needShortcut>
                     <j2seVersion>8</j2seVersion>
@@ -123,15 +124,5 @@
                 </configuration>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>*.fxml</include>
-                    <include>**/*.ico</include>
-                    <include>*.properties</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
 </project>
