@@ -27,6 +27,7 @@ public class App extends Application {
         log.info("loading conf.properties");
         try {
             GUIConfig.init();
+            log.info(System.getProperty("file.encoding"));
         } catch (Exception e) {
             log.error("{0}", e);
         }
