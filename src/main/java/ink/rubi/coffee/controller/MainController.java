@@ -1,6 +1,7 @@
 package ink.rubi.coffee.controller;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -140,6 +141,12 @@ public class MainController implements Initializable {
                 .setDataSource(allConfig.getDataSourceConfig())
                 .setTemplate(allConfig.getTemplateConfig()).setTemplateEngine(allConfig.getTemplateEngine())
 //                .setConfig(null).setCfg(null)
+                .setCfg(new InjectionConfig() {
+                    @Override
+                    public void initMap() {
+
+                    }
+                })
                 .setStrategy(strategyConfig)
                 .setPackageInfo(allConfig.getPackageConfig());
 

@@ -19,6 +19,14 @@ pom依赖里的 **velocity** 和 **spring** 是为了**兼容**
 故 `mp-code-generator-gui.log` 和 GUI窗里的内容有所不同。
 
 
-## 写给自己看的，要做的功能
+## 如何构建
+    git clone git@github.com:9Rubi/mp-code-generator-gui.git
+or  
 
+    git clone https://github.com/9Rubi/mp-code-generator-gui.git
+    
+then
+    
+    mvn jfx:native
 
+check the files in target/jfx.
