@@ -1,8 +1,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane fx:id="strategyPage" styleClass="centerPane"
-          vgap="10" hgap="10" xmlns="http://javafx.com/javafx/8.0.172"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="ink.rubi.coffee.controller.StrategyController">
+<GridPane xmlns:fx="http://javafx.com/fxml"
+          fx:id="strategyPage" styleClass="centerPane"
+          vgap="10" hgap="10"
+          fx:controller="ink.rubi.coffee.controller.StrategyController">
 
     <Label text="表前缀(半角逗号分割)" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
     <TextField fx:id="tablePrefix" prefWidth="305" styleClass="leftTextField" GridPane.columnIndex="1"

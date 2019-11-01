@@ -1,8 +1,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane fx:id="dataSourcePage" styleClass="centerPane"
-          vgap="10" hgap="10" xmlns="http://javafx.com/javafx/8.0.172"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="ink.rubi.coffee.controller.DataSourceController">
+<GridPane xmlns:fx="http://javafx.com/fxml"
+        fx:id="dataSourcePage" styleClass="centerPane"
+          vgap="10" hgap="10"
+          fx:controller="ink.rubi.coffee.controller.DataSourceController">
 
 
     <Label text="数据库地址" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>

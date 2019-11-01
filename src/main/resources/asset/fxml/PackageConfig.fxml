@@ -1,11 +1,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane fx:id="packagePage" styleClass="centerPane"
-          vgap="10" hgap="10" xmlns="http://javafx.com/javafx/8.0.172"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="ink.rubi.coffee.controller.PackageConfController">
+<GridPane xmlns:fx="http://javafx.com/fxml"
+          fx:id="packagePage" styleClass="centerPane" vgap="10" hgap="10"
+          fx:controller="ink.rubi.coffee.controller.PackageConfController">
 
 
-    <Label text="父包名,如果为空,将下面子包名必须写全部,否则就只需写子包名" styleClass="whiteLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <Label text="父包名,如果为空,将下面子包名必须写全部,否则就只需写子包名" styleClass="whiteLabel" GridPane.columnIndex="0"
+           GridPane.rowIndex="0"/>
     <TextField fx:id="parent" prefWidth="435.0" styleClass="leftTextField" GridPane.columnIndex="1"
                GridPane.rowIndex="0"/>
 
