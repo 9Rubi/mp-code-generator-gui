@@ -32,7 +32,7 @@ object AlertBox {
         window.minHeight = 144.0
         val label = Label(message)
         val closeButton = Button("知道了")
-        closeButton.setOnAction { event -> window.close() }
+        closeButton.setOnAction { _ -> window.close() }
         val layout = VBox(10.0)
         label.padding = Insets(10.0, 10.0, 10.0, 10.0)
         layout.children.addAll(label, closeButton)

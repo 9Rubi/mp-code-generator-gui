@@ -9,7 +9,6 @@ import ink.rubi.coffee.config.GUIConfig
 import ink.rubi.coffee.controller.stream.GUIPrintStream
 import ink.rubi.coffee.modal.AlertBox
 import ink.rubi.coffee.po.holder.AllConfigHolder
-import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.Button
@@ -33,8 +32,10 @@ import java.util.stream.Stream
  * @author : Rubi
  * @version : 2019-05-17 12:14 下午
  */
+val log = LoggerFactory.getLogger("[MainController]")!!
+
 @Getter
-class MainController: Initializable {
+class MainController : Initializable {
 
     @FXML
     private lateinit var button: Button
@@ -81,14 +82,12 @@ class MainController: Initializable {
 
 
     private fun injectMainControllerToOther(vararg controllers: IController<*>) {
-        Stream.of<IController<*>>(*controllers).forEach { controller -> controller.inject(this) }
+        Stream.of(*controllers).forEach { controller -> controller.inject(this) }
     }
 
     override fun initialize(location: URL, resources: ResourceBundle?) {
         console.isEditable = false
-
         objectMapper = ObjectMapper()
-
         configFileChooser = FileChooser()
         configFileChooser.title = "选择配置元数据文件"
         configFileChooser.extensionFilters.add(FileChooser.ExtensionFilter("配置文件", "*.json"))
@@ -111,7 +110,7 @@ class MainController: Initializable {
 
     }
 
-    fun onSubmit(actionEvent: ActionEvent) {
+    fun onSubmit() {
         executeGenerator(getAllConfigHolder())
     }
 
@@ -159,7 +158,7 @@ class MainController: Initializable {
         System.setErr(guiPrintStream)
     }
 
-    fun showGitHubPage(actionEvent: ActionEvent) {
+    fun showGitHubPage() {
         try {
             Desktop.getDesktop().browse(URI("https://github.com/9Rubi/mp-code-generator-gui"))
         } catch (e: IOException) {
@@ -171,7 +170,7 @@ class MainController: Initializable {
     }
 
 
-    fun readFromFile(actionEvent: ActionEvent) {
+    fun readFromFile() {
         val file = configFileChooser.showOpenDialog(window)
         if (file != null) {
             val container: AllConfigHolder
@@ -199,7 +198,7 @@ class MainController: Initializable {
         typeIn.text = container.strategyConfigHolder!!.include
     }
 
-    fun saveToFile(actionEvent: ActionEvent) {
+    fun saveToFile() {
         configFileChooser.initialFileName = "config.json"
         val file = configFileChooser.showSaveDialog(window)
         if (file != null) {
@@ -218,22 +217,18 @@ class MainController: Initializable {
     }
 
 
-    fun onClear(actionEvent: ActionEvent) {
+    fun onClear() {
         console.clear()
     }
 
-    fun onDefault(actionEvent: ActionEvent) {
+    fun onDefault() {
         showDefault(dataSourceController, globalController,
                 strategyController, packageConfController,
                 templateController)
     }
 
     private fun showDefault(vararg controllers: IController<*>) {
-        Stream.of<IController<*>>(*controllers).forEach { it.defaultShow() }
+        Stream.of(*controllers).forEach { it.defaultShow() }
     }
 
-    companion object {
-
-        private val log = LoggerFactory.getLogger("[MainController]")
-    }
 }

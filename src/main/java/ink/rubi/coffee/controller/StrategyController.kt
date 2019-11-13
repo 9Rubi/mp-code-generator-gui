@@ -8,7 +8,6 @@ import ink.rubi.coffee.po.NamingItem
 import ink.rubi.coffee.po.TableFillRow
 import ink.rubi.coffee.po.holder.StrategyConfigHolder
 import javafx.beans.property.SimpleStringProperty
-import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.*
@@ -201,13 +200,13 @@ class StrategyController : IController<StrategyConfigHolder>, Initializable {
 
     }
 
-    fun insert(actionEvent: ActionEvent) {
+    fun insert() {
         val key = fieldName.text
         val value = fieldFill.selectionModel.selectedItemProperty().value
         tableFills.items.add(TableFillRow(key, value))
     }
 
-    fun delete(actionEvent: ActionEvent) {
+    fun delete() {
         tableFills.items.remove(
                 tableFills.selectionModel.selectedItemProperty().value
         )

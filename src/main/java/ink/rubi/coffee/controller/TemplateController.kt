@@ -8,7 +8,6 @@ import javafx.fxml.Initializable
 import javafx.scene.control.ChoiceBox
 import javafx.scene.control.Label
 import javafx.scene.control.TextField
-import javafx.scene.input.MouseEvent
 import javafx.scene.layout.GridPane
 import javafx.stage.FileChooser
 import lombok.extern.slf4j.Slf4j
@@ -93,7 +92,7 @@ class TemplateController : IController<TemplateConfigHolder>, Initializable {
     override fun initialize(location: URL, resources: ResourceBundle?) {
         engine.items.addAll(engines)
         defaultShow()
-        engine.selectionModel.selectedItemProperty().addListener { observable, oldValue, newValue ->
+        engine.selectionModel.selectedItemProperty().addListener { _, oldValue, newValue ->
             val oldResult = oldValue == Engine.custom
             val newResult = newValue == Engine.custom
             if (oldResult != newResult) {
@@ -127,35 +126,35 @@ class TemplateController : IController<TemplateConfigHolder>, Initializable {
     }
 
 
-    fun chooseEntity(mouseEvent: MouseEvent) {
+    fun chooseEntity() {
         val file = fileChooser.showOpenDialog(mainController!!.window)
         if (file != null) {
             entity.text = file.path
         }
     }
 
-    fun chooseEntityKt(mouseEvent: MouseEvent) {
+    fun chooseEntityKt() {
         val file = fileChooser.showOpenDialog(mainController!!.window)
         if (file != null) {
             entityKt.text = file.path
         }
     }
 
-    fun chooseMapper(mouseEvent: MouseEvent) {
+    fun chooseMapper() {
         val file = fileChooser.showOpenDialog(mainController!!.window)
         if (file != null) {
             mapper.text = file.path
         }
     }
 
-    fun chooseXml(mouseEvent: MouseEvent) {
+    fun chooseXml() {
         val file = fileChooser.showOpenDialog(mainController!!.window)
         if (file != null) {
             xml.text = file.path
         }
     }
 
-    fun chooseService(mouseEvent: MouseEvent) {
+    fun chooseService() {
 
         val file = fileChooser.showOpenDialog(mainController!!.window)
         if (file != null) {
@@ -163,14 +162,14 @@ class TemplateController : IController<TemplateConfigHolder>, Initializable {
         }
     }
 
-    fun chooseServiceImpl(mouseEvent: MouseEvent) {
+    fun chooseServiceImpl() {
         val file = fileChooser.showOpenDialog(mainController!!.window)
         if (file != null) {
             serviceImpl.text = file.path
         }
     }
 
-    fun chooseController(mouseEvent: MouseEvent) {
+    fun chooseController() {
         val file = fileChooser.showOpenDialog(mainController!!.window)
         if (file != null) {
             controller.text = file.path

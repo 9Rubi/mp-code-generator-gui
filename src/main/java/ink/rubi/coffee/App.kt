@@ -1,15 +1,14 @@
 package ink.rubi.coffee
 
 import ink.rubi.coffee.config.GUIConfig
+import ink.rubi.coffee.controller.MainController
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
-import javafx.fxml.LoadException
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.stage.Stage
 import org.slf4j.LoggerFactory
-import java.lang.RuntimeException
 
 /**
  * @author : Rubi
@@ -25,6 +24,7 @@ class App : Application() {
         window = primaryStage
         val fxmlLoader = FXMLLoader(this.javaClass.getResource("/asset/fxml/App.fxml"))
         layout = fxmlLoader.load()
+        fxmlLoader.getController<MainController>().window = window
         window.isResizable = false
         window.title = "Mybatis-plus代码生成器GUI"
         window.icons.add(Image(javaClass.getResourceAsStream("/asset/img/coffee.png")))
