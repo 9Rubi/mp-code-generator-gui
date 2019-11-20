@@ -12,7 +12,7 @@ import java.util.*
  * @author : Rubi
  * @version : 2019-05-18 17:30 下午
  */
-class PackageConfController : IController<PackageConfigHolder> , Initializable {
+class PackageConfController : IController<PackageConfigHolder>, Initializable {
     @FXML
     private lateinit var parent: TextField
     @FXML
@@ -39,7 +39,7 @@ class PackageConfController : IController<PackageConfigHolder> , Initializable {
 
     override fun defaultShow() {
         parent.text = "com.baomidou"
-        moduleName.clear()
+        moduleName.text = ""
         entity.text = "entity"
         service.text = "service"
         serviceImpl.text = "service.impl"

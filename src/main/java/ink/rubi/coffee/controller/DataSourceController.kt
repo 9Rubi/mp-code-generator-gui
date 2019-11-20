@@ -12,7 +12,7 @@ import java.util.*
  * @author : Rubi
  * @version : 2019-05-17 23:27 下午
  */
-class DataSourceController : IController<DataSourceConfigHolder> , Initializable{
+class DataSourceController : IController<DataSourceConfigHolder>, Initializable {
 
     @FXML
     private lateinit var dataSourcePage: GridPane
@@ -29,7 +29,7 @@ class DataSourceController : IController<DataSourceConfigHolder> , Initializable
 
     private var mainController: MainController? = null
 
-    override fun initialize(location: URL, resources : ResourceBundle?) {
+    override fun initialize(location: URL, resources: ResourceBundle?) {
         defaultShow()
     }
 
@@ -45,8 +45,8 @@ class DataSourceController : IController<DataSourceConfigHolder> , Initializable
         url.text = "jdbc:mysql://localhost:3306/table_name?useUnicode=true&useSSL=false&characterEncoding=utf8"
         driverName.text = "com.mysql.jdbc.Driver"
         username.text = "root"
-        password.clear()
-        schemaName.clear()
+        password.text = ""
+        schemaName.text = ""
     }
 
 

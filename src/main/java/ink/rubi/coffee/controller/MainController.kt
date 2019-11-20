@@ -218,7 +218,7 @@ class MainController : Initializable {
 
 
     fun onClear() {
-        console.clear()
+        console.text = ""
     }
 
     fun onDefault() {

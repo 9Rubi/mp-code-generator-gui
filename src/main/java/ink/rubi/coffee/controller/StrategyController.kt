@@ -95,13 +95,13 @@ class StrategyController : IController<StrategyConfigHolder>, Initializable {
         superServiceClass.text = "com.baomidou.mybatisplus.extension.service.IService"
         superServiceImplClass.text = "com.baomidou.mybatisplus.extension.service.impl.ServiceImpl"
 
-        tablePrefix.clear()
-        fieldPrefix.clear()
-        superEntityClass.clear()
-        superEntityColumns.clear()
-        superControllerClass.clear()
-        versionFieldName.clear()
-        logicDeleteFieldName.clear()
+        tablePrefix.text = ""
+        fieldPrefix.text = ""
+        superEntityClass.text = ""
+        superEntityColumns.text = ""
+        superControllerClass.text = ""
+        versionFieldName.text = ""
+        logicDeleteFieldName.text = ""
 
 
         entitySerialVersionUID.isSelected = true

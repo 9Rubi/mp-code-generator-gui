@@ -72,13 +72,13 @@ class GlobalController : IController<GlobalConfigHolder>, Initializable {
 
     override fun defaultShow() {
         outputDir.text = "D:\\generate-code"
-        author.clear()
-        entityName.clear()
-        mapperName.clear()
-        xmlName.clear()
-        serviceName.clear()
-        serviceImplName.clear()
-        controllerName.clear()
+        author.text = ""
+        entityName.text = ""
+        mapperName.text = ""
+        xmlName.text = ""
+        serviceName.text = ""
+        serviceImplName.text = ""
+        controllerName.text = ""
         open.isSelected = true
         fileOverride.isSelected = false
         enableCache.isSelected = false
